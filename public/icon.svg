@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="16" fill="#061d22" />
+  <circle cx="32" cy="32" r="24" fill="#0d4850" fill-opacity="0.6" />
+  <!-- Asteria Starburst Icon -->
+  <path d="M32 8L36.5 24.5L53 28L38 37L42.5 54L32 43.5L21.5 54L26 37L11 28L27.5 24.5L32 8Z" fill="url(#ast_grad)" />
+  <circle cx="32" cy="32" r="4" fill="#ffffff" />
+  <defs>
+    <linearGradient id="ast_grad" x1="11" y1="8" x2="53" y2="54" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#60c8d4" />
+      <stop offset="0.5" stop-color="#11606e" />
+      <stop offset="1" stop-color="#0a3a40" />
+    </linearGradient>
+  </defs>
+</svg>

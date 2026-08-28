@@ -1,0 +1,228 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --teal-900: #11606e;
+  --teal-400: #60c8d4;
+  --premium-night: #071b22;
+  --premium-night-2: #0a2b34;
+  --surface-dark-2: #0b4a55;
+  --surface: #ffffff;
+  --surface-alt: #f5f8f8;
+  --ink: #12201f;
+  --ink-soft: #4b5c5c;
+  --ink-faint: #8a9695;
+  --line: #e2e8e7;
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-line: rgba(96, 200, 212, 0.16);
+  --glow-soft: 0 0 32px rgba(96, 200, 212, 0.16);
+  --shadow-premium: 0 28px 70px -34px rgba(17, 96, 110, 0.42);
+
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 500ms;
+  --dur-ambient: 3200ms;
+
+  --ease-vague: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-courant: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-maree: cubic-bezier(0.37, 0, 0.63, 1);
+}
+
+html, body {
+  background-color: var(--premium-night) !important;
+  color: #f1f5f9;
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  overflow-x: hidden;
+}
+
+::selection {
+  background-color: var(--teal-400);
+  color: var(--premium-night);
+}
+
+/* Custom smooth scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #051419;
+}
+::-webkit-scrollbar-thumb {
+  background: #11606e;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #60c8d4;
+}
+
+/* Artistic Bespoke Glass with Specular Edge */
+.ast-art-glass {
+  background: linear-gradient(135deg, rgba(10, 43, 52, 0.65) 0%, rgba(7, 27, 34, 0.85) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(96, 200, 212, 0.18);
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    inset 0 0 20px 0 rgba(96, 200, 212, 0.03),
+    0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.ast-art-glass::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(96, 200, 212, 0.6), transparent);
+  pointer-events: none;
+}
+
+/* Tech HUD Corner Brackets */
+.hud-corner {
+  position: relative;
+}
+.hud-corner::before,
+.hud-corner::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(96, 200, 212, 0.4);
+  pointer-events: none;
+}
+.hud-corner::before {
+  top: 6px;
+  left: 6px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+}
+.hud-corner::after {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+}
+
+/* Holographic Card Sheen */
+.holographic-sheen {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(96, 200, 212, 0.15) 25%,
+    rgba(245, 158, 11, 0.1) 50%,
+    rgba(52, 211, 153, 0.15) 75%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  background-size: 200% 200%;
+  animation: holoShift 6s ease infinite;
+}
+
+@keyframes holoShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fluid Liquid Metal Gradient Text */
+.ast-gradient-liquid {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e8fbff 25%,
+    #60c8d4 50%,
+    #a5f3fc 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquidShine 8s linear infinite;
+}
+
+@keyframes liquidShine {
+  to { background-position: 200% center; }
+}
+
+/* Shimmer Sweep Animation */
+.shimmer-active {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.25) 50%, transparent 65%);
+  animation: shimmerSweep 3.6s var(--ease-maree) infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% { transform: translateX(-100%); }
+  50%, 100% { transform: translateX(100%); }
+}
+
+/* Wave Dot Pulse */
+@keyframes waveDotPulse {
+  0%, 100% {
+    transform: translateY(0px) scale(0.85);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(-4px) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Bathymetric contour line SVG backdrop */
+.ast-bathymetry-pattern {
+  background-image: radial-gradient(circle at 50% 50%, rgba(96, 200, 212, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Kicker / Eyebrow typography token */
+.ast-kicker {
+  font-family: var(--font-jetbrains-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Input styling */
+.ast-glass-input {
+  background: rgba(7, 27, 34, 0.7);
+  border: 1px solid rgba(96, 200, 212, 0.2);
+  backdrop-filter: blur(12px);
+  color: #f8fafc;
+  transition: all var(--dur-fast) var(--ease-courant);
+}
+
+.ast-glass-input:focus {
+  border-color: var(--teal-400);
+  box-shadow: 
+    0 0 0 3px rgba(96, 200, 212, 0.2),
+    0 0 25px rgba(96, 200, 212, 0.25);
+  outline: none;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .shimmer-active::after {
+    display: none !important;
+  }
+}
