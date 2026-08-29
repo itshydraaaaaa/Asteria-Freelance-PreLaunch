@@ -2,11 +2,15 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { UserX, Scale, CreditCard, AlertTriangle, FileX, Ban, ArrowDownRight } from "lucide-react";
+import { UserX, Scale, CreditCard, AlertTriangle, ArrowDownRight } from "lucide-react";
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
+import { useTheme } from "./ThemeProvider";
 
 export default function ProblemSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const problems = [
     {
       code: "INCIDENT_01 // CHAT_DEAL",
@@ -41,24 +45,26 @@ export default function ProblemSection() {
   ];
 
   return (
-    <section id="the-problem" className="py-20 md:py-28 relative bg-ast-night">
+    <section id="the-problem" className="py-20 md:py-28 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-pill bg-rose-500/10 border border-rose-500/25 text-rose-300">
-            <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
-            <span className="ast-kicker text-rose-300">The Reality of Freelancing in Tunisia</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-pill bg-rose-500/10 border border-rose-500/25 text-rose-400">
+            <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
+            <span className="ast-kicker">The Reality of Freelancing in Tunisia</span>
           </div>
 
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
+          <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
+            isDark ? "text-white" : "text-slate-900"
+          }`}>
             Freelancing shouldn't feel like an{" "}
-            <span className="text-rose-400 inline-block underline decoration-rose-500/30 decoration-2 underline-offset-8">
+            <span className="text-rose-500 inline-block underline decoration-rose-500/30 decoration-2 underline-offset-8">
               unprotected gamble
             </span>.
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-300">
+          <p className={`text-base sm:text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}>
             Thousands of talented Tunisian designers, developers, writers, and marketers
             lose time and income every month to broken informal arrangements.
           </p>
@@ -77,39 +83,47 @@ export default function ProblemSection() {
                 transition={{ duration: durSlow, delay: idx * 0.08, ease: easeVague }}
               >
                 <InteractiveGlowCard
-                  glowColor="rgba(244, 63, 94, 0.12)"
-                  className="h-full bg-ast-night-2/80 border-ast-teal-400/15 hover:border-rose-400/40 p-6 flex flex-col justify-between group shadow-ast-card"
+                  glowColor={isDark ? "rgba(244, 63, 94, 0.12)" : "rgba(244, 63, 94, 0.08)"}
+                  className={`h-full border hover:border-rose-400/40 p-6 flex flex-col justify-between group shadow-ast-card ${
+                    isDark ? "bg-ast-night-2/80 border-ast-teal-400/15" : "bg-white border-slate-200 shadow-sm"
+                  }`}
                 >
                   <div className="space-y-4">
                     {/* Top Forensic Header */}
                     <div className="flex items-center justify-between border-b border-rose-500/15 pb-3">
-                      <span className="font-mono text-[10px] text-rose-400/80 tracking-widest uppercase">
+                      <span className="font-mono text-[10px] text-rose-500 tracking-widest uppercase font-semibold">
                         {problem.code}
                       </span>
-                      <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-300 font-medium">
+                      <span className="font-mono text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 font-bold">
                         {problem.meta}
                       </span>
                     </div>
 
                     {/* Icon & Title */}
                     <div className="space-y-3">
-                      <div className="w-12 h-12 rounded-12 bg-rose-500/10 border border-rose-500/25 flex items-center justify-center text-rose-400 group-hover:scale-105 transition-transform duration-fast ease-courant shadow-glow-soft">
+                      <div className="w-12 h-12 rounded-12 bg-rose-500/10 border border-rose-500/25 flex items-center justify-center text-rose-500 group-hover:scale-105 transition-transform duration-fast ease-courant shadow-glow-soft">
                         <Icon className="w-6 h-6" />
                       </div>
 
-                      <h3 className="font-heading font-bold text-xl text-white group-hover:text-rose-100 transition-colors duration-fast">
+                      <h3 className={`font-heading font-bold text-xl transition-colors duration-fast ${
+                        isDark ? "text-white group-hover:text-rose-100" : "text-slate-900 group-hover:text-rose-600"
+                      }`}>
                         {problem.title}
                       </h3>
-                      <p className="text-sm text-slate-300 leading-relaxed">
+                      <p className={`text-sm leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                         {problem.description}
                       </p>
                     </div>
                   </div>
 
                   {/* Common Frustration Quote Box */}
-                  <div className="mt-6 pt-4 border-t border-ast-teal-400/10 bg-ast-night/60 -mx-6 -mb-6 p-4 rounded-b-18">
-                    <p className="text-xs italic text-slate-400 font-mono flex items-start gap-1.5">
-                      <ArrowDownRight className="w-3.5 h-3.5 text-rose-400 flex-shrink-0 mt-0.5" />
+                  <div className={`mt-6 pt-4 border-t -mx-6 -mb-6 p-4 rounded-b-18 ${
+                    isDark ? "bg-ast-night/60 border-ast-teal-400/10" : "bg-slate-50 border-slate-100"
+                  }`}>
+                    <p className={`text-xs italic font-mono flex items-start gap-1.5 ${
+                      isDark ? "text-slate-400" : "text-slate-600"
+                    }`}>
+                      <ArrowDownRight className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" />
                       <span>{problem.badQuote}</span>
                     </p>
                   </div>

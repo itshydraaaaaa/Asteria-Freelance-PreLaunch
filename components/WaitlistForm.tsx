@@ -12,17 +12,19 @@ import {
   Check, 
   Sparkles,
   ArrowRight,
-  QrCode,
   Lock
 } from "lucide-react";
 import { SKILL_CATEGORIES, REFERRAL_SOURCES } from "@/lib/constants";
 import { WaitlistFormData } from "@/lib/types";
 import { submitWaitlistSignup } from "@/lib/supabase";
 import { trackEvent } from "@/lib/analytics";
-import { easeVague, easeCourant, durSlow, FivePointWaveLoader, WaveLineDivider } from "@/lib/motion";
-import { InteractiveGlowCard } from "./InteractiveGlowCard";
+import { easeVague, durSlow, FivePointWaveLoader, WaveLineDivider } from "@/lib/motion";
+import { useTheme } from "./ThemeProvider";
 
 export default function WaitlistForm() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const [formData, setFormData] = useState<WaitlistFormData>({
     fullName: "",
     email: "",
@@ -142,16 +144,18 @@ export default function WaitlistForm() {
   };
 
   return (
-    <section id="waitlist" className="py-20 md:py-28 relative bg-ast-night">
+    <section id="waitlist" className="py-20 md:py-28 relative">
       {/* Ambient Glow */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <div className="w-[700px] h-[450px] bg-ast-teal-900/25 rounded-pill blur-[160px]" />
+        <div className="w-[700px] h-[450px] bg-ast-teal-900/15 rounded-pill blur-[160px]" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Form Container Card */}
-        <div className="rounded-26 ast-art-glass shadow-premium p-6 sm:p-10 md:p-12 relative overflow-hidden hud-corner">
+        <div className={`rounded-26 ast-art-glass shadow-premium p-6 sm:p-10 md:p-12 relative overflow-hidden hud-corner ${
+          isDark ? "" : "bg-white/95 border-slate-200 shadow-md"
+        }`}>
           
           <AnimatePresence mode="wait">
             
@@ -165,20 +169,24 @@ export default function WaitlistForm() {
                 transition={{ duration: durSlow, ease: easeVague }}
                 className="space-y-8 text-center py-4"
               >
-                <div className="w-16 h-16 rounded-18 bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto shadow-glow-soft">
+                <div className="w-16 h-16 rounded-18 bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-500 mx-auto shadow-glow-soft">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
 
                 <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 px-4 py-1 rounded-pill bg-emerald-500/10 border border-emerald-500/30 text-emerald-300">
+                  <div className="inline-flex items-center gap-2 px-4 py-1 rounded-pill bg-emerald-500/10 border border-emerald-500/30 text-emerald-500">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span className="ast-kicker text-emerald-300">Cohort 01 Verified Reservation</span>
+                    <span className="ast-kicker">Cohort 01 Verified Reservation</span>
                   </div>
-                  <h3 className="font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl text-white">
+                  <h3 className={`font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl ${
+                    isDark ? "text-white" : "text-slate-900"
+                  }`}>
                     Welcome aboard, {formData.fullName.split(" ")[0]}!
                   </h3>
-                  <p className="text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-                    You have secured your priority spot in the <strong className="text-emerald-300 font-semibold">Founding Freelancer Cohort</strong>. We will send an onboarding invitation code directly to <span className="font-mono text-white font-medium">{formData.email}</span> when launch access begins.
+                  <p className={`text-sm sm:text-base max-w-lg mx-auto leading-relaxed ${
+                    isDark ? "text-slate-300" : "text-slate-600"
+                  }`}>
+                    You have secured your priority spot in the <strong className="text-emerald-500 font-semibold">Founding Freelancer Cohort</strong>. We will send an onboarding invitation code directly to <span className={`font-mono font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{formData.email}</span> when launch access begins.
                   </p>
                 </div>
 
@@ -187,16 +195,22 @@ export default function WaitlistForm() {
                   initial={{ opacity: 0, y: 14 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: durSlow, delay: 0.2, ease: easeVague }}
-                  className="max-w-md mx-auto p-6 sm:p-7 rounded-26 bg-gradient-to-br from-ast-night-2 via-ast-surface-dark-2/60 to-ast-night border border-ast-teal-400/40 text-left space-y-5 shadow-premium holographic-sheen relative overflow-hidden"
+                  className={`max-w-md mx-auto p-6 sm:p-7 rounded-26 border text-left space-y-5 shadow-premium holographic-sheen relative overflow-hidden ${
+                    isDark 
+                      ? "bg-gradient-to-br from-ast-night-2 via-ast-surface-dark-2/60 to-ast-night border-ast-teal-400/40" 
+                      : "bg-gradient-to-br from-white via-slate-50 to-white border-ast-teal-900/20 shadow-md"
+                  }`}
                 >
                   {/* Top Specular Edge */}
                   <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/50 to-transparent" />
 
-                  <div className="flex items-center justify-between border-b border-white/10 pb-4">
+                  <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4">
                     <div className="flex items-center gap-3">
                       <div className="relative flex items-center justify-center">
                         <div className="absolute -inset-1 bg-ast-teal-400/30 rounded-pill blur-xs animate-pulse-wave" />
-                        <div className="relative w-9 h-9 rounded-10 bg-ast-night-2 border border-ast-teal-400/50 flex items-center justify-center p-1.5 overflow-hidden shadow-glow-soft">
+                        <div className={`relative w-9 h-9 rounded-10 border flex items-center justify-center p-1.5 overflow-hidden shadow-glow-soft ${
+                          isDark ? "bg-ast-night-2 border-ast-teal-400/50" : "bg-white border-slate-200 shadow-sm"
+                        }`}>
                           <Image
                             src="/logo.png"
                             alt="Asteria Freelance"
@@ -207,7 +221,7 @@ export default function WaitlistForm() {
                         </div>
                       </div>
                       <div>
-                        <span className="font-heading font-extrabold text-sm text-white block">
+                        <span className={`font-heading font-extrabold text-sm block ${isDark ? "text-white" : "text-slate-900"}`}>
                           Asteria Freelance Pass
                         </span>
                         <span className="font-mono text-[9px] text-ast-teal-400 tracking-wider">
@@ -216,7 +230,7 @@ export default function WaitlistForm() {
                       </div>
                     </div>
                     
-                    <span className="ast-kicker text-emerald-300 px-2.5 py-1 rounded-6 bg-emerald-500/20 border border-emerald-500/40">
+                    <span className="ast-kicker text-emerald-500 px-2.5 py-1 rounded-6 bg-emerald-500/15 border border-emerald-500/40">
                       FOUNDING TALENT
                     </span>
                   </div>
@@ -225,7 +239,7 @@ export default function WaitlistForm() {
                   <div className="grid grid-cols-2 gap-4 text-xs font-mono">
                     <div>
                       <span className="ast-kicker text-slate-400 block text-[9px]">MEMBER NAME</span>
-                      <span className="font-semibold text-white truncate block text-sm pt-0.5">{formData.fullName}</span>
+                      <span className={`font-semibold truncate block text-sm pt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>{formData.fullName}</span>
                     </div>
                     <div>
                       <span className="ast-kicker text-slate-400 block text-[9px]">DISCIPLINE</span>
@@ -234,18 +248,18 @@ export default function WaitlistForm() {
                   </div>
 
                   {/* Pass Footer */}
-                  <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
-                    <span className="ast-kicker flex items-center gap-1 text-slate-300">
-                      <Lock className="w-3 h-3 text-emerald-400" />
+                  <div className="pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                    <span className={`ast-kicker flex items-center gap-1 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                      <Lock className="w-3 h-3 text-emerald-500" />
                       STATUS: CONFIRMED
                     </span>
-                    <span className="text-emerald-300 font-semibold">DISCOUNTED PLATFORM FEE</span>
+                    <span className="text-emerald-500 font-semibold">DISCOUNTED PLATFORM FEE</span>
                   </div>
                 </motion.div>
 
                 {/* Share Section */}
                 <div className="space-y-4 pt-4 border-t border-ast-teal-400/15">
-                  <p className="text-xs sm:text-sm font-medium text-slate-300">
+                  <p className={`text-xs sm:text-sm font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                     Know another great Tunisian freelancer? Invite them to Cohort 01:
                   </p>
 
@@ -258,15 +272,19 @@ export default function WaitlistForm() {
                     </button>
                     <button
                       onClick={() => handleSocialShare("linkedin")}
-                      className="px-5 py-2.5 rounded-12 text-xs font-semibold bg-[#0A66C2]/15 border border-[#0A66C2]/40 text-[#70b5f9] hover:bg-[#0A66C2]/25 transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft"
+                      className="px-5 py-2.5 rounded-12 text-xs font-semibold bg-[#0A66C2]/15 border border-[#0A66C2]/40 text-[#0A66C2] dark:text-[#70b5f9] hover:bg-[#0A66C2]/25 transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft"
                     >
                       <span>Share on LinkedIn</span>
                     </button>
                     <button
                       onClick={handleCopyShare}
-                      className="px-5 py-2.5 rounded-12 text-xs font-semibold bg-ast-night-2 border border-ast-teal-400/25 text-slate-200 hover:text-white hover:border-ast-teal-400/50 transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft"
+                      className={`px-5 py-2.5 rounded-12 text-xs font-semibold border transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft ${
+                        isDark 
+                          ? "bg-ast-night-2 border-ast-teal-400/25 text-slate-200 hover:text-white hover:border-ast-teal-400/50" 
+                          : "bg-white border-slate-200 text-slate-800 hover:border-ast-teal-900/30"
+                      }`}
                     >
-                      {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                       <span>{copiedLink ? "Link Copied!" : "Copy Page Link"}</span>
                     </button>
                   </div>
@@ -285,31 +303,37 @@ export default function WaitlistForm() {
               >
                 {/* Header */}
                 <div className="text-center max-w-xl mx-auto space-y-3">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-pill bg-ast-night-2 border border-ast-teal-400/30 text-ast-teal-400 shadow-glow-soft">
+                  <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-pill border shadow-glow-soft ${
+                    isDark ? "bg-ast-night-2 border-ast-teal-400/30 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
+                  }`}>
                     <ShieldCheck className="w-3.5 h-3.5 text-ast-teal-400" />
                     <span className="ast-kicker">Cohort 01 Waitlist Form</span>
                   </div>
 
-                  <h2 className="font-heading font-extrabold text-3xl sm:text-4xl text-white tracking-tight">
+                  <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl tracking-tight ${
+                    isDark ? "text-white" : "text-slate-900"
+                  }`}>
                     Join the Founding Freelancers
                   </h2>
 
-                  <p className="text-sm sm:text-base text-slate-300">
+                  <p className={`text-sm sm:text-base ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                     Reserve your early onboarding access. No spam, no obligation—just guaranteed payment protection and founding fee benefits when we open.
                   </p>
                 </div>
 
-                {/* Duplicate Notification (Calm, Informational Tone) */}
+                {/* Duplicate Notification */}
                 {status === "duplicate" && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: durSlow, ease: easeVague }}
-                    className="p-4 rounded-14 bg-ast-night border border-ast-teal-400/35 flex items-start gap-3 text-slate-200 text-xs sm:text-sm shadow-glow-soft"
+                    className={`p-4 rounded-14 border flex items-start gap-3 text-xs sm:text-sm shadow-glow-soft ${
+                      isDark ? "bg-ast-night border-ast-teal-400/35 text-slate-200" : "bg-teal-50 border-teal-200 text-slate-800"
+                    }`}
                   >
                     <AlertCircle className="w-5 h-5 text-ast-teal-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-white">You are already on the list!</strong> We have your email recorded for Cohort 01. You will be notified as soon as initial invitations go out.
+                      <strong className={isDark ? "text-white" : "text-slate-900"}>You are already on the list!</strong> We have your email recorded for Cohort 01. You will be notified as soon as initial invitations go out.
                     </div>
                   </motion.div>
                 )}
@@ -320,9 +344,9 @@ export default function WaitlistForm() {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: durSlow, ease: easeVague }}
-                    className="p-4 rounded-14 bg-rose-500/10 border border-rose-500/35 flex items-start gap-3 text-rose-200 text-xs sm:text-sm font-medium"
+                    className="p-4 rounded-14 bg-rose-500/10 border border-rose-500/35 flex items-start gap-3 text-rose-500 text-xs sm:text-sm font-medium"
                   >
-                    <AlertCircle className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
+                    <AlertCircle className="w-5 h-5 text-rose-500 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">{errorMessage}</div>
                   </motion.div>
                 )}
@@ -335,7 +359,7 @@ export default function WaitlistForm() {
                     <div className="space-y-2 text-left">
                       <label 
                         htmlFor="fullName"
-                        className="block ast-kicker text-slate-300"
+                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
                         Full Name <span className="text-ast-teal-400">*</span>
                       </label>
@@ -347,7 +371,7 @@ export default function WaitlistForm() {
                         value={formData.fullName}
                         onChange={handleInputChange}
                         placeholder="e.g. Yassine Ben Salem"
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm placeholder:text-slate-500 font-sans"
+                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
                         disabled={status === "loading"}
                       />
                     </div>
@@ -356,7 +380,7 @@ export default function WaitlistForm() {
                     <div className="space-y-2 text-left">
                       <label 
                         htmlFor="email"
-                        className="block ast-kicker text-slate-300"
+                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
                         Email Address <span className="text-ast-teal-400">*</span>
                       </label>
@@ -368,7 +392,7 @@ export default function WaitlistForm() {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="yassine@example.tn"
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm placeholder:text-slate-500 font-sans"
+                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
                         disabled={status === "loading"}
                       />
                     </div>
@@ -381,7 +405,7 @@ export default function WaitlistForm() {
                     <div className="space-y-2 text-left">
                       <label 
                         htmlFor="skillCategory"
-                        className="block ast-kicker text-slate-300"
+                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
                         Primary Skill / Discipline <span className="text-ast-teal-400">*</span>
                       </label>
@@ -391,14 +415,14 @@ export default function WaitlistForm() {
                         required
                         value={formData.skillCategory}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm text-slate-100 bg-[#071b22] cursor-pointer font-sans"
+                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
                         disabled={status === "loading"}
                       >
-                        <option value="" disabled className="text-slate-500">
+                        <option value="" disabled className={isDark ? "text-slate-500" : "text-slate-400"}>
                           Select your primary domain
                         </option>
                         {SKILL_CATEGORIES.map((category) => (
-                          <option key={category} value={category} className="bg-ast-night-2 text-white">
+                          <option key={category} value={category} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
                             {category}
                           </option>
                         ))}
@@ -409,23 +433,23 @@ export default function WaitlistForm() {
                     <div className="space-y-2 text-left">
                       <label 
                         htmlFor="referralSource"
-                        className="block ast-kicker text-slate-300"
+                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
-                        Where did you hear about us? <span className="text-slate-500 text-[10px] normal-case">(optional)</span>
+                        Where did you hear about us? <span className="text-slate-400 text-[10px] normal-case">(optional)</span>
                       </label>
                       <select
                         id="referralSource"
                         name="referralSource"
                         value={formData.referralSource}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm text-slate-100 bg-[#071b22] cursor-pointer font-sans"
+                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
                         disabled={status === "loading"}
                       >
-                        <option value="" className="text-slate-500">
+                        <option value="" className={isDark ? "text-slate-500" : "text-slate-400"}>
                           Select a channel
                         </option>
                         {REFERRAL_SOURCES.map((source) => (
-                          <option key={source} value={source} className="bg-ast-night-2 text-white">
+                          <option key={source} value={source} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
                             {source}
                           </option>
                         ))}

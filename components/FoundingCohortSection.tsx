@@ -8,14 +8,16 @@ import {
   Percent, 
   Compass, 
   Users2, 
-  ArrowRight,
-  ShieldAlert,
-  Zap
+  ArrowRight
 } from "lucide-react";
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
+import { useTheme } from "./ThemeProvider";
 
 export default function FoundingCohortSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const perks = [
     {
       code: "PERK_01",
@@ -61,11 +63,13 @@ export default function FoundingCohortSection() {
   };
 
   return (
-    <section id="founding-cohort" className="py-20 md:py-28 relative bg-ast-night">
+    <section id="founding-cohort" className="py-20 md:py-28 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Main Cohort Showcase Shell */}
-        <div className="rounded-26 ast-art-glass p-8 sm:p-12 shadow-premium relative overflow-hidden hud-corner">
+        <div className={`rounded-26 ast-art-glass p-8 sm:p-12 shadow-premium relative overflow-hidden hud-corner ${
+          isDark ? "" : "bg-white/95 border-slate-200 shadow-md"
+        }`}>
           
           {/* Ambient Lighting inside card */}
           <div className="absolute -top-28 -right-28 w-96 h-96 bg-ast-teal-400/12 rounded-pill blur-3xl pointer-events-none" />
@@ -75,29 +79,33 @@ export default function FoundingCohortSection() {
             
             {/* Left Description */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-pill bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 shadow-glow-soft">
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-pill bg-emerald-500/15 border border-emerald-500/35 text-emerald-500 shadow-glow-soft">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span className="ast-kicker text-emerald-300">Cohort 01 • Genesis Talent</span>
+                <span className="ast-kicker">Cohort 01 • Genesis Talent</span>
               </div>
 
-              <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
+              <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
+                isDark ? "text-white" : "text-slate-900"
+              }`}>
                 Don't just join at launch.{" "}
-                <span className="text-emerald-300 block mt-1">
+                <span className="text-emerald-500 block mt-1">
                   Help build Tunisia's freelance future.
                 </span>
               </h2>
 
-              <p className="text-slate-300 text-base leading-relaxed">
+              <p className={`text-base leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                 We are intentionally curating our first cohort of skilled Tunisian freelancers
                 before releasing the platform to clients. Early sign-ups receive genuine platform incentives and early access.
               </p>
 
-              {/* Scarcity Box with Ambient Pulse Border */}
-              <div className="p-4 rounded-14 bg-ast-night/90 border border-emerald-500/30 flex items-start gap-3.5 shadow-glow-soft">
-                <div className="w-2.5 h-2.5 rounded-pill bg-emerald-400 mt-1.5 animate-pulse-wave flex-shrink-0" />
+              {/* Scarcity Box */}
+              <div className={`p-4 rounded-14 border flex items-start gap-3.5 shadow-glow-soft ${
+                isDark ? "bg-ast-night/90 border-emerald-500/30" : "bg-emerald-50/60 border-emerald-200"
+              }`}>
+                <div className="w-2.5 h-2.5 rounded-pill bg-emerald-500 mt-1.5 animate-pulse-wave flex-shrink-0" />
                 <div>
-                  <div className="ast-kicker text-emerald-300 mb-0.5">Cohort 01 Allocation</div>
-                  <p className="text-xs text-slate-300 font-mono leading-relaxed">
+                  <div className="ast-kicker text-emerald-500 mb-0.5">Cohort 01 Allocation</div>
+                  <p className={`text-xs font-mono leading-relaxed ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                     Founding slots are prioritized for verified Tunisian talent across Development, Design, Content, and Marketing.
                   </p>
                 </div>
@@ -106,7 +114,7 @@ export default function FoundingCohortSection() {
               <div className="pt-2">
                 <button
                   onClick={scrollToWaitlist}
-                  className="px-7 py-4 rounded-14 font-heading font-bold text-sm text-ast-night bg-emerald-300 hover:bg-emerald-200 active:scale-95 transition-all duration-fast ease-courant shadow-glow-soft flex items-center gap-2.5 group"
+                  className="px-7 py-4 rounded-14 font-heading font-bold text-sm text-ast-night bg-emerald-400 hover:bg-emerald-300 active:scale-95 transition-all duration-fast ease-courant shadow-glow-soft flex items-center gap-2.5 group"
                 >
                   <span>Reserve Your Founding Slot</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -127,22 +135,24 @@ export default function FoundingCohortSection() {
                     transition={{ duration: durSlow, delay: idx * 0.08, ease: easeVague }}
                   >
                     <InteractiveGlowCard
-                      glowColor="rgba(52, 211, 153, 0.14)"
-                      className="p-5 bg-ast-night/85 border-ast-teal-400/20 hover:border-emerald-400/40 space-y-3 shadow-ast-card"
+                      glowColor={isDark ? "rgba(52, 211, 153, 0.14)" : "rgba(16, 185, 129, 0.08)"}
+                      className={`p-5 border space-y-3 shadow-ast-card ${
+                        isDark ? "bg-ast-night/85 border-ast-teal-400/20 hover:border-emerald-400/40" : "bg-white border-slate-200 hover:border-emerald-500/40 shadow-sm"
+                      }`}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="w-10 h-10 rounded-10 bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-300 shadow-glow-soft">
+                        <div className="w-10 h-10 rounded-10 bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-500 shadow-glow-soft">
                           <Icon className="w-5 h-5" />
                         </div>
-                        <span className="font-mono text-[10px] text-slate-400 tracking-wider">
+                        <span className="font-mono text-[10px] text-slate-400 tracking-wider font-semibold">
                           {perk.code}
                         </span>
                       </div>
 
-                      <h3 className="font-heading font-bold text-base text-white">
+                      <h3 className={`font-heading font-bold text-base ${isDark ? "text-white" : "text-slate-900"}`}>
                         {perk.title}
                       </h3>
-                      <p className="text-xs text-slate-300 leading-relaxed">
+                      <p className={`text-xs leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                         {perk.description}
                       </p>
                     </InteractiveGlowCard>

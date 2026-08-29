@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  /* Brand Constants */
   --teal-900: #11606e;
   --teal-400: #60c8d4;
   --premium-night: #071b22;
@@ -14,11 +15,8 @@
   --ink-soft: #4b5c5c;
   --ink-faint: #8a9695;
   --line: #e2e8e7;
-  --glass: rgba(255, 255, 255, 0.04);
-  --glass-line: rgba(96, 200, 212, 0.16);
-  --glow-soft: 0 0 32px rgba(96, 200, 212, 0.16);
-  --shadow-premium: 0 28px 70px -34px rgba(17, 96, 110, 0.42);
 
+  /* Motion Tokens */
   --dur-fast: 150ms;
   --dur-base: 300ms;
   --dur-slow: 500ms;
@@ -27,47 +25,81 @@
   --ease-vague: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-courant: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-maree: cubic-bezier(0.37, 0, 0.63, 1);
+
+  /* Dynamic Theme Variables (Defaults to Dark Mode) */
+  --bg-base: #071b22;
+  --bg-surface: #0a2b34;
+  --bg-card: rgba(10, 43, 52, 0.65);
+  --bg-card-header: rgba(7, 27, 34, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: rgba(96, 200, 212, 0.18);
+  --border-highlight: rgba(96, 200, 212, 0.6);
+  --glow-soft: 0 0 32px rgba(96, 200, 212, 0.16);
+  --shadow-premium: 0 28px 70px -34px rgba(17, 96, 110, 0.42);
+  --input-bg: rgba(7, 27, 34, 0.7);
+  --input-border: rgba(96, 200, 212, 0.2);
+  --input-text: #f8fafc;
+}
+
+/* Light Theme Overrides (Charte Graphique v2.1 Light) */
+html.light {
+  --bg-base: #f7faf9;
+  --bg-surface: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-card-header: rgba(245, 248, 248, 0.95);
+  --text-primary: #12201f;
+  --text-secondary: #4b5c5c;
+  --text-muted: #8a9695;
+  --border-color: rgba(17, 96, 110, 0.16);
+  --border-highlight: rgba(17, 96, 110, 0.4);
+  --glow-soft: 0 0 32px rgba(17, 96, 110, 0.08);
+  --shadow-premium: 0 20px 50px -20px rgba(17, 96, 110, 0.15);
+  --input-bg: rgba(255, 255, 255, 0.92);
+  --input-border: rgba(17, 96, 110, 0.22);
+  --input-text: #12201f;
 }
 
 html, body {
-  background-color: var(--premium-night) !important;
-  color: #f1f5f9;
+  background-color: var(--bg-base) !important;
+  color: var(--text-primary);
   scroll-behavior: smooth;
-  color-scheme: dark;
   overflow-x: hidden;
+  transition: background-color var(--dur-base) var(--ease-courant), color var(--dur-base) var(--ease-courant);
 }
 
 ::selection {
   background-color: var(--teal-400);
-  color: var(--premium-night);
+  color: #071b22;
 }
 
-/* Custom smooth scrollbar */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #051419;
+  background: var(--bg-base);
 }
 ::-webkit-scrollbar-thumb {
-  background: #11606e;
+  background: var(--teal-900);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #60c8d4;
+  background: var(--teal-400);
 }
 
 /* Artistic Bespoke Glass with Specular Edge */
 .ast-art-glass {
-  background: linear-gradient(135deg, rgba(10, 43, 52, 0.65) 0%, rgba(7, 27, 34, 0.85) 100%);
+  background: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(96, 200, 212, 0.18);
+  border: 1px solid var(--border-color);
   box-shadow: 
     inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    inset 0 0 20px 0 rgba(96, 200, 212, 0.03),
-    0 24px 60px -20px rgba(0, 0, 0, 0.6);
+    var(--shadow-premium);
   position: relative;
+  transition: all var(--dur-base) var(--ease-courant);
 }
 
 .ast-art-glass::before {
@@ -77,7 +109,7 @@ html, body {
   left: 15%;
   right: 15%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(96, 200, 212, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, var(--border-highlight), transparent);
   pointer-events: none;
 }
 
@@ -91,7 +123,8 @@ html, body {
   position: absolute;
   width: 8px;
   height: 8px;
-  border-color: rgba(96, 200, 212, 0.4);
+  border-color: var(--teal-400);
+  opacity: 0.5;
   pointer-events: none;
 }
 .hud-corner::before {
@@ -143,6 +176,32 @@ html, body {
   animation: liquidShine 8s linear infinite;
 }
 
+html.light .ast-gradient-liquid {
+  background: linear-gradient(
+    135deg,
+    #11606e 0%,
+    #0a2b34 30%,
+    #60c8d4 70%,
+    #11606e 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: liquidShine 8s linear infinite;
+}
+
+.ast-gradient-cyan {
+  background: linear-gradient(135deg, var(--teal-400) 0%, #11606e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .ast-gradient-cyan {
+  background: linear-gradient(135deg, var(--teal-400) 0%, #c4f7fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 @keyframes liquidShine {
   to { background-position: 200% center; }
 }
@@ -163,6 +222,10 @@ html, body {
   pointer-events: none;
 }
 
+html.light .shimmer-active::after {
+  background: linear-gradient(100deg, transparent 35%, rgba(17, 96, 110, 0.15) 50%, transparent 65%);
+}
+
 @keyframes shimmerSweep {
   0% { transform: translateX(-100%); }
   50%, 100% { transform: translateX(100%); }
@@ -180,10 +243,14 @@ html, body {
   }
 }
 
-/* Bathymetric contour line SVG backdrop */
+/* Bathymetric contour pattern */
 .ast-bathymetry-pattern {
   background-image: radial-gradient(circle at 50% 50%, rgba(96, 200, 212, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+html.light .ast-bathymetry-pattern {
+  background-image: radial-gradient(circle at 50% 50%, rgba(17, 96, 110, 0.05) 1px, transparent 1px);
 }
 
 /* Kicker / Eyebrow typography token */
@@ -197,18 +264,18 @@ html, body {
 
 /* Input styling */
 .ast-glass-input {
-  background: rgba(7, 27, 34, 0.7);
-  border: 1px solid rgba(96, 200, 212, 0.2);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   backdrop-filter: blur(12px);
-  color: #f8fafc;
+  color: var(--input-text);
   transition: all var(--dur-fast) var(--ease-courant);
 }
 
 .ast-glass-input:focus {
   border-color: var(--teal-400);
   box-shadow: 
-    0 0 0 3px rgba(96, 200, 212, 0.2),
-    0 0 25px rgba(96, 200, 212, 0.25);
+    0 0 0 3px rgba(96, 200, 212, 0.25),
+    0 0 25px rgba(96, 200, 212, 0.2);
   outline: none;
 }
 

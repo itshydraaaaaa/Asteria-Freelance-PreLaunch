@@ -3,20 +3,21 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { 
-  ShieldCheck, 
   Lock, 
   Wallet, 
   UserCheck, 
   Wand2, 
   Coins,
-  CheckCircle2,
-  Cpu,
-  ArrowRight
+  Cpu
 } from "lucide-react";
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
+import { useTheme } from "./ThemeProvider";
 
 export default function SolutionSection() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+
   const steps = [
     {
       stepNumber: "01",
@@ -61,25 +62,29 @@ export default function SolutionSection() {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 md:py-28 relative bg-ast-night">
+    <section id="how-it-works" className="py-20 md:py-28 relative">
       {/* Ambient background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-ast-teal-900/20 rounded-pill blur-[160px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-ast-teal-900/15 rounded-pill blur-[160px] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-pill bg-ast-night-2/90 border border-ast-teal-400/25 text-ast-teal-400 shadow-glow-soft">
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-pill border shadow-glow-soft ${
+            isDark ? "bg-ast-night-2/90 border-ast-teal-400/25 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
+          }`}>
             <Cpu className="w-3.5 h-3.5 text-ast-teal-400" />
             <span className="ast-kicker">The Asteria Protocol • Preview</span>
           </div>
 
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-tight">
+          <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
+            isDark ? "text-white" : "text-slate-900"
+          }`}>
             How Asteria Protects Your{" "}
             <span className="ast-gradient-cyan block mt-1">Work & Take-Home Income</span>
           </h2>
 
-          <p className="text-base sm:text-lg text-slate-300">
+          <p className={`text-base sm:text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}>
             A preview of the mechanics designed to replace informal anxiety
             with bank-grade payment security and local convenience.
           </p>
@@ -98,35 +103,41 @@ export default function SolutionSection() {
                 transition={{ duration: durSlow, delay: idx * 0.08, ease: easeVague }}
               >
                 <InteractiveGlowCard
-                  glowColor="rgba(96, 200, 212, 0.16)"
-                  className="h-full bg-ast-night-2/80 border-ast-teal-400/15 hover:border-ast-teal-400/40 p-7 group shadow-ast-card flex flex-col justify-between"
+                  glowColor={isDark ? "rgba(96, 200, 212, 0.16)" : "rgba(17, 96, 110, 0.08)"}
+                  className={`h-full border hover:border-ast-teal-400/40 p-7 group shadow-ast-card flex flex-col justify-between ${
+                    isDark ? "bg-ast-night-2/80 border-ast-teal-400/15" : "bg-white border-slate-200 shadow-sm"
+                  }`}
                 >
                   <div className="space-y-4">
                     {/* Card Protocol Header */}
                     <div className="flex items-center justify-between border-b border-ast-teal-400/15 pb-3">
-                      <span className="font-mono text-[10px] text-ast-teal-400 tracking-widest uppercase">
+                      <span className="font-mono text-[10px] text-ast-teal-400 tracking-widest uppercase font-semibold">
                         {step.stepTag}
                       </span>
-                      <span className="font-mono text-[10px] text-slate-400 bg-ast-night px-2 py-0.5 rounded border border-ast-teal-400/15">
+                      <span className={`font-mono text-[10px] px-2 py-0.5 rounded border ${
+                        isDark ? "text-slate-400 bg-ast-night border-ast-teal-400/15" : "text-slate-600 bg-slate-100 border-slate-200 font-medium"
+                      }`}>
                         {step.telemetry}
                       </span>
                     </div>
 
                     {/* Icon and badge */}
                     <div className="flex items-center gap-3 pt-1">
-                      <div className="w-12 h-12 rounded-14 bg-ast-teal-900/50 border border-ast-teal-400/35 flex items-center justify-center text-ast-teal-400 group-hover:scale-105 transition-transform duration-fast ease-courant shadow-glow-soft">
+                      <div className="w-12 h-12 rounded-14 bg-ast-teal-900/20 border border-ast-teal-400/35 flex items-center justify-center text-ast-teal-400 group-hover:scale-105 transition-transform duration-fast ease-courant shadow-glow-soft">
                         <Icon className="w-6 h-6" />
                       </div>
-                      <span className="ast-kicker text-ast-teal-400 px-3 py-1 rounded-6 bg-ast-teal-900/30 border border-ast-teal-400/25">
+                      <span className="ast-kicker text-ast-teal-400 px-3 py-1 rounded-6 bg-ast-teal-900/20 border border-ast-teal-400/25">
                         {step.badge}
                       </span>
                     </div>
 
                     {/* Title & Description */}
-                    <h3 className="font-heading font-bold text-xl text-white group-hover:text-teal-200 transition-colors">
+                    <h3 className={`font-heading font-bold text-xl transition-colors ${
+                      isDark ? "text-white group-hover:text-teal-200" : "text-slate-900 group-hover:text-ast-teal-900"
+                    }`}>
                       {step.title}
                     </h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">
+                    <p className={`text-sm leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                       {step.description}
                     </p>
                   </div>
@@ -143,37 +154,41 @@ export default function SolutionSection() {
           })}
         </div>
 
-        {/* Fee Transparency Callout with Holographic Edge */}
+        {/* Fee Transparency Callout */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: durSlow, ease: easeVague }}
-          className="mt-12 rounded-26 ast-art-glass border border-ast-teal-400/30 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-premium shimmer-active"
+          className={`mt-12 rounded-26 ast-art-glass border p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-premium shimmer-active ${
+            isDark ? "border-ast-teal-400/30" : "bg-white/95 border-slate-200 shadow-md"
+          }`}
         >
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-16 bg-ast-teal-900/60 border border-ast-teal-400/40 flex items-center justify-center text-ast-teal-400 flex-shrink-0 shadow-glow-soft">
+            <div className="w-14 h-14 rounded-16 bg-ast-teal-900/20 border border-ast-teal-400/40 flex items-center justify-center text-ast-teal-400 flex-shrink-0 shadow-glow-soft">
               <Coins className="w-7 h-7" />
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="ast-kicker text-emerald-400">TRANSPARENT LEDGER</span>
+                <span className="ast-kicker text-emerald-500 font-bold">TRANSPARENT LEDGER</span>
                 <span className="text-[10px] font-mono text-slate-400">• NO HIDDEN DEDUCTIONS</span>
               </div>
-              <h4 className="font-heading font-extrabold text-xl text-white">
+              <h4 className={`font-heading font-extrabold text-xl ${isDark ? "text-white" : "text-slate-900"}`}>
                 Honest, Fair Fees — 88% Net Freelancer Take-Home
               </h4>
-              <p className="text-sm text-slate-300 max-w-xl">
+              <p className={`text-sm max-w-xl ${isDark ? "text-slate-300" : "text-slate-600"}`}>
                 A flat 12% standard platform fee covers full escrow bank vaulting, dispute arbitration, and payment gateway routing. You keep 88% of every dinar.
               </p>
             </div>
           </div>
 
-          <div className="flex-shrink-0 text-center sm:text-right bg-ast-night/80 p-4 rounded-14 border border-ast-teal-400/20">
-            <span className="ast-kicker text-emerald-300 block mb-1">
+          <div className={`flex-shrink-0 text-center sm:text-right p-4 rounded-14 border ${
+            isDark ? "bg-ast-night/80 border-ast-teal-400/20" : "bg-slate-50 border-slate-200"
+          }`}>
+            <span className="ast-kicker text-emerald-500 block mb-1">
               Founding Freelancers Cohort:
             </span>
-            <span className="px-3.5 py-1.5 rounded-8 bg-emerald-500/15 border border-emerald-500/35 text-emerald-300 font-mono text-sm font-bold inline-block shadow-glow-soft">
+            <span className="px-3.5 py-1.5 rounded-8 bg-emerald-500/15 border border-emerald-500/35 text-emerald-500 font-mono text-sm font-bold inline-block shadow-glow-soft">
               Discounted Launch Rate
             </span>
           </div>

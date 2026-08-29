@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-ast-night text-slate-100 flex flex-col justify-between selection:bg-ast-teal-400 selection:text-ast-night">
+    <div className="relative min-h-screen flex flex-col justify-between selection:bg-ast-teal-400 selection:text-ast-night">
       {/* Dynamic Ambient Deep-Water Mesh */}
       <BackgroundMesh />
 

@@ -2,34 +2,41 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HelpCircle, ChevronDown, Sparkles } from "lucide-react";
+import { HelpCircle, ChevronDown } from "lucide-react";
 import { FAQ_ITEMS } from "@/lib/constants";
-import { easeCourant, durBase, durFast, WaveLineDivider } from "@/lib/motion";
+import { easeCourant, durBase } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
+import { useTheme } from "./ThemeProvider";
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   const toggleFaq = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   return (
-    <section id="faq" className="py-20 md:py-28 relative bg-ast-night">
+    <section id="faq" className="py-20 md:py-28 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-14 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-pill bg-ast-night-2/90 border border-ast-teal-400/30 text-ast-teal-400 shadow-glow-soft">
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-pill border shadow-glow-soft ${
+            isDark ? "bg-ast-night-2/90 border-ast-teal-400/30 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
+          }`}>
             <HelpCircle className="w-3.5 h-3.5 text-ast-teal-400" />
             <span className="ast-kicker">Knowledge Base // FAQ</span>
           </div>
 
-          <h2 className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight">
+          <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight ${
+            isDark ? "text-white" : "text-slate-900"
+          }`}>
             Frequently Asked Questions
           </h2>
 
-          <p className="text-base text-slate-300">
+          <p className={`text-base ${isDark ? "text-slate-300" : "text-slate-600"}`}>
             Everything you need to know about the Asteria Freelance pre-launch and founding cohort.
           </p>
         </div>
@@ -41,11 +48,15 @@ export default function FaqSection() {
             return (
               <InteractiveGlowCard
                 key={idx}
-                glowColor="rgba(96, 200, 212, 0.12)"
-                className={`transition-all duration-fast ease-courant overflow-hidden ${
+                glowColor={isDark ? "rgba(96, 200, 212, 0.12)" : "rgba(17, 96, 110, 0.06)"}
+                className={`transition-all duration-fast ease-courant overflow-hidden border ${
                   isOpen
-                    ? "bg-ast-night-2/95 border-ast-teal-400/40 shadow-glow-soft"
-                    : "bg-ast-night-2/60 border-ast-teal-400/15 hover:border-ast-teal-400/30 hover:bg-ast-night-2/80"
+                    ? isDark 
+                      ? "bg-ast-night-2/95 border-ast-teal-400/40 shadow-glow-soft" 
+                      : "bg-white border-ast-teal-900/40 shadow-md"
+                    : isDark 
+                      ? "bg-ast-night-2/60 border-ast-teal-400/15 hover:border-ast-teal-400/30 hover:bg-ast-night-2/80" 
+                      : "bg-white/80 border-slate-200 hover:border-slate-300 shadow-sm"
                 }`}
               >
                 <button
@@ -54,10 +65,12 @@ export default function FaqSection() {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-ast-teal-400/60 font-semibold">
+                    <span className="font-mono text-xs text-ast-teal-400 font-semibold">
                       0{idx + 1}.
                     </span>
-                    <span className="font-heading font-bold text-base sm:text-lg text-white">
+                    <span className={`font-heading font-bold text-base sm:text-lg ${
+                      isDark ? "text-white" : "text-slate-900"
+                    }`}>
                       {item.question}
                     </span>
                   </div>
@@ -66,7 +79,7 @@ export default function FaqSection() {
                     className={`w-8 h-8 rounded-10 flex items-center justify-center flex-shrink-0 transition-transform duration-fast ease-courant ${
                       isOpen
                         ? "bg-ast-teal-400 text-ast-night rotate-180 shadow-glow-soft"
-                        : "bg-ast-night text-slate-400 border border-ast-teal-400/20"
+                        : isDark ? "bg-ast-night text-slate-400 border border-ast-teal-400/20" : "bg-slate-100 text-slate-600 border border-slate-200"
                     }`}
                   >
                     <ChevronDown className="w-4 h-4" />
@@ -82,7 +95,9 @@ export default function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: durBase, ease: easeCourant }}
                     >
-                      <div className="px-6 pb-6 pt-0 text-sm sm:text-base text-slate-300 leading-relaxed border-t border-ast-teal-400/15 mt-1">
+                      <div className={`px-6 pb-6 pt-0 text-sm sm:text-base leading-relaxed border-t mt-1 ${
+                        isDark ? "text-slate-300 border-ast-teal-400/15" : "text-slate-600 border-slate-100"
+                      }`}>
                         <p className="pt-4">{item.answer}</p>
                       </div>
                     </motion.div>

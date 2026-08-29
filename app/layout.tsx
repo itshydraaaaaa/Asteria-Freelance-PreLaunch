@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Sora, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -84,8 +85,8 @@ export default function RootLayout({
       lang="en"
       className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}
     >
-      <body className="min-h-screen bg-ast-night text-slate-100 font-sans antialiased selection:bg-ast-teal-400 selection:text-ast-night relative">
-        {children}
+      <body className="min-h-screen font-sans antialiased relative">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
