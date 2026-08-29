@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#071b22",
+  themeColor: "#f7faf9",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -83,7 +83,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable} scroll-smooth`}
+      className={`${sora.variable} ${inter.variable} ${jetbrainsMono.variable} light scroll-smooth`}
+      style={{ colorScheme: "light" }}
     >
       <body className="min-h-screen font-sans antialiased relative">
         <ThemeProvider>{children}</ThemeProvider>

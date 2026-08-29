@@ -13,20 +13,19 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Check saved theme or system preference
+    // Check saved theme or default to light mode
     const savedTheme = localStorage.getItem("asteria-theme") as Theme | null;
     if (savedTheme && (savedTheme === "dark" || savedTheme === "light")) {
       setThemeState(savedTheme);
       document.documentElement.classList.remove("dark", "light");
       document.documentElement.classList.add(savedTheme);
     } else {
-      // Default to dark mode (brand signature), or system
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const initialTheme: Theme = prefersDark ? "dark" : "dark"; // Brand default is dark, can toggle to light
+      // Default to light mode
+      const initialTheme: Theme = "light";
       setThemeState(initialTheme);
       document.documentElement.classList.remove("dark", "light");
       document.documentElement.classList.add(initialTheme);
@@ -42,7 +41,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
+    const nextTheme = theme === "light" ? "dark" : "light";
     setTheme(nextTheme);
   };
 
@@ -57,7 +56,7 @@ export function useTheme() {
   const context = useContext(ThemeContext);
   if (!context) {
     return {
-      theme: "dark" as Theme,
+      theme: "light" as Theme,
       toggleTheme: () => {},
       setTheme: () => {},
     };

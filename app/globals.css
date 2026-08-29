@@ -26,25 +26,7 @@
   --ease-courant: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-maree: cubic-bezier(0.37, 0, 0.63, 1);
 
-  /* Dynamic Theme Variables (Defaults to Dark Mode) */
-  --bg-base: #071b22;
-  --bg-surface: #0a2b34;
-  --bg-card: rgba(10, 43, 52, 0.65);
-  --bg-card-header: rgba(7, 27, 34, 0.85);
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --border-color: rgba(96, 200, 212, 0.18);
-  --border-highlight: rgba(96, 200, 212, 0.6);
-  --glow-soft: 0 0 32px rgba(96, 200, 212, 0.16);
-  --shadow-premium: 0 28px 70px -34px rgba(17, 96, 110, 0.42);
-  --input-bg: rgba(7, 27, 34, 0.7);
-  --input-border: rgba(96, 200, 212, 0.2);
-  --input-text: #f8fafc;
-}
-
-/* Light Theme Overrides (Charte Graphique v2.1 Light) */
-html.light {
+  /* Dynamic Theme Variables — Default to Light Theme */
   --bg-base: #f7faf9;
   --bg-surface: #ffffff;
   --bg-card: rgba(255, 255, 255, 0.88);
@@ -59,6 +41,24 @@ html.light {
   --input-bg: rgba(255, 255, 255, 0.92);
   --input-border: rgba(17, 96, 110, 0.22);
   --input-text: #12201f;
+}
+
+/* Dark Theme Overrides */
+html.dark {
+  --bg-base: #071b22;
+  --bg-surface: #0a2b34;
+  --bg-card: rgba(10, 43, 52, 0.65);
+  --bg-card-header: rgba(7, 27, 34, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: rgba(96, 200, 212, 0.18);
+  --border-highlight: rgba(96, 200, 212, 0.6);
+  --glow-soft: 0 0 32px rgba(96, 200, 212, 0.16);
+  --shadow-premium: 0 28px 70px -34px rgba(17, 96, 110, 0.42);
+  --input-bg: rgba(7, 27, 34, 0.7);
+  --input-border: rgba(96, 200, 212, 0.2);
+  --input-text: #f8fafc;
 }
 
 html, body {
@@ -164,11 +164,10 @@ html, body {
 .ast-gradient-liquid {
   background: linear-gradient(
     135deg,
-    #ffffff 0%,
-    #e8fbff 25%,
-    #60c8d4 50%,
-    #a5f3fc 75%,
-    #ffffff 100%
+    #11606e 0%,
+    #0a2b34 30%,
+    #60c8d4 70%,
+    #11606e 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -176,13 +175,14 @@ html, body {
   animation: liquidShine 8s linear infinite;
 }
 
-html.light .ast-gradient-liquid {
+html.dark .ast-gradient-liquid {
   background: linear-gradient(
     135deg,
-    #11606e 0%,
-    #0a2b34 30%,
-    #60c8d4 70%,
-    #11606e 100%
+    #ffffff 0%,
+    #e8fbff 25%,
+    #60c8d4 50%,
+    #a5f3fc 75%,
+    #ffffff 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -217,13 +217,13 @@ html.dark .ast-gradient-cyan {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.25) 50%, transparent 65%);
+  background: linear-gradient(100deg, transparent 35%, rgba(17, 96, 110, 0.15) 50%, transparent 65%);
   animation: shimmerSweep 3.6s var(--ease-maree) infinite;
   pointer-events: none;
 }
 
-html.light .shimmer-active::after {
-  background: linear-gradient(100deg, transparent 35%, rgba(17, 96, 110, 0.15) 50%, transparent 65%);
+html.dark .shimmer-active::after {
+  background: linear-gradient(100deg, transparent 35%, rgba(255, 255, 255, 0.25) 50%, transparent 65%);
 }
 
 @keyframes shimmerSweep {
@@ -245,12 +245,12 @@ html.light .shimmer-active::after {
 
 /* Bathymetric contour pattern */
 .ast-bathymetry-pattern {
-  background-image: radial-gradient(circle at 50% 50%, rgba(96, 200, 212, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(circle at 50% 50%, rgba(17, 96, 110, 0.05) 1px, transparent 1px);
   background-size: 32px 32px;
 }
 
-html.light .ast-bathymetry-pattern {
-  background-image: radial-gradient(circle at 50% 50%, rgba(17, 96, 110, 0.05) 1px, transparent 1px);
+html.dark .ast-bathymetry-pattern {
+  background-image: radial-gradient(circle at 50% 50%, rgba(96, 200, 212, 0.05) 1px, transparent 1px);
 }
 
 /* Kicker / Eyebrow typography token */
