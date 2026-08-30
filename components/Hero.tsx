@@ -1,16 +1,18 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   ShieldCheck, 
   ArrowRight, 
   Lock, 
   Wallet, 
-  Sparkles,
+  Sparkles, 
   ChevronDown,
   Fingerprint,
-  Check
+  Check,
+  CheckCircle2,
+  RotateCcw
 } from "lucide-react";
 import { easeVague, durSlow } from "@/lib/motion";
 import { useTheme } from "./ThemeProvider";
@@ -20,6 +22,8 @@ export default function Hero() {
   const { theme } = useTheme();
   const { t } = useLanguage();
   const isDark = theme === "dark";
+
+  const [milestone2Approved, setMilestone2Approved] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -72,7 +76,7 @@ export default function Hero() {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           
           {/* Left Column: Staged Reveal Copy & CTAs */}
           <div className="lg:col-span-7 space-y-7 text-left">
@@ -236,30 +240,91 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Milestone 2: Escrow Locked */}
-                <div className={`p-4 rounded-14 border space-y-2 relative overflow-hidden shadow-ast-card ${
-                  isDark ? "bg-ast-surface-dark-2/40 border-ast-teal-400/35" : "bg-sky-50/60 border-ast-teal-900/20"
-                }`}>
-                  <div className="flex items-center justify-between">
-                    <span className={`text-xs font-semibold flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-pill bg-ast-teal-400 opacity-75" />
-                        <span className="relative inline-flex rounded-pill h-2 w-2 bg-ast-teal-400" />
-                      </span>
-                      {t.hero.milestone2Title}
-                    </span>
-                    <span className="text-xs font-mono font-bold text-ast-teal-400 tracking-wider bg-ast-teal-900/20 px-2 py-0.5 rounded border border-ast-teal-400/30">
-                      1,400 TND
-                    </span>
-                  </div>
+                {/* Milestone 2: Escrow Locked / Interactive Simulation */}
+                <AnimatePresence mode="wait">
+                  {milestone2Approved ? (
+                    <motion.div
+                      key="approved"
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      className={`p-4 rounded-14 border space-y-2 relative overflow-hidden shimmer-active shadow-ast-card ${
+                        isDark ? "bg-ast-night/85 border-emerald-500/40" : "bg-emerald-50/70 border-emerald-400"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-semibold flex items-center gap-2 ${isDark ? "text-slate-200" : "text-slate-800"}`}>
+                          <div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                          </div>
+                          {t.hero.milestone2Title}
+                        </span>
+                        <span className="text-xs font-mono font-bold text-emerald-500 tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                          +1,400 TND
+                        </span>
+                      </div>
 
-                  <div className="flex items-center justify-between text-[11px] font-mono pt-1">
-                    <span className="text-amber-500 flex items-center gap-1.5 font-medium">
-                      <Lock className="w-3 h-3 text-amber-500" />
-                      {t.hero.milestone2Locked}
-                    </span>
-                    <span className={isDark ? "text-slate-300" : "text-slate-600"}>{t.hero.milestone2Until}</span>
-                  </div>
+                      <div className="flex items-center justify-between text-[11px] text-emerald-500 font-mono pt-1">
+                        <span className="font-semibold">{t.hero.milestone1Approved}</span>
+                        <span className="font-medium">{t.hero.fundsReleasedSuccess}</span>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="locked"
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      className={`p-4 rounded-14 border space-y-2 relative overflow-hidden shadow-ast-card ${
+                        isDark ? "bg-ast-surface-dark-2/40 border-ast-teal-400/35" : "bg-sky-50/60 border-ast-teal-900/20"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-semibold flex items-center gap-2 ${isDark ? "text-white" : "text-slate-900"}`}>
+                          <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-pill bg-ast-teal-400 opacity-75" />
+                            <span className="relative inline-flex rounded-pill h-2 w-2 bg-ast-teal-400" />
+                          </span>
+                          {t.hero.milestone2Title}
+                        </span>
+                        <span className="text-xs font-mono font-bold text-ast-teal-400 tracking-wider bg-ast-teal-900/20 px-2 py-0.5 rounded border border-ast-teal-400/30">
+                          1,400 TND
+                        </span>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[11px] font-mono pt-1">
+                        <span className="text-amber-500 flex items-center gap-1.5 font-medium">
+                          <Lock className="w-3 h-3 text-amber-500" />
+                          {t.hero.milestone2Locked}
+                        </span>
+                        <span className={isDark ? "text-slate-300" : "text-slate-600"}>{t.hero.milestone2Until}</span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Interactive Simulator Trigger */}
+                <div className="flex items-center justify-end">
+                  <button
+                    onClick={() => setMilestone2Approved(!milestone2Approved)}
+                    className={`text-[11px] font-mono font-medium px-3 py-1.5 rounded-8 border transition-all duration-fast ease-courant flex items-center gap-1.5 ${
+                      milestone2Approved
+                        ? "bg-slate-100 dark:bg-ast-night-2 border-slate-300 dark:border-ast-teal-400/20 text-slate-600 dark:text-slate-400 hover:text-ast-teal-400"
+                        : "bg-ast-teal-400/15 border-ast-teal-400/30 text-ast-teal-400 hover:bg-ast-teal-400/25 shadow-xs"
+                    }`}
+                  >
+                    {milestone2Approved ? (
+                      <>
+                        <RotateCcw className="w-3 h-3" />
+                        <span>Reset Simulation</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3 h-3" />
+                        <span>{t.hero.simulateReleaseBtn}</span>
+                      </>
+                    )}
+                  </button>
                 </div>
 
                 {/* Dual-Sided KYC Authentication Seal */}

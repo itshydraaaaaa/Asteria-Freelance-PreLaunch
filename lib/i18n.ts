@@ -7,6 +7,7 @@ export const translations = {
       cohortBadge: "Cohort 01 Pre-Launch",
       navReality: "The Reality",
       navHowItWorks: "How It Works",
+      navCalculator: "Earnings Calculator",
       navPerks: "Founding Perks",
       navFaq: "FAQ",
       ctaJoin: "Join Waitlist",
@@ -39,6 +40,8 @@ export const translations = {
       kycPass: "KYC PASS",
       taxId: "Tax ID: TN-1849204 // Biometrics Validated",
       localSettlement: "Local Settlement",
+      simulateReleaseBtn: "Simulate Milestone 2 Approval",
+      fundsReleasedSuccess: "1,400 TND Released Instantly to Konnect Account!",
     },
     stats: [
       {
@@ -68,6 +71,7 @@ export const translations = {
       titleHighlight: "unprotected gamble",
       subtitle:
         "Thousands of talented Tunisian designers, developers, writers, and marketers lose time and income every month to broken informal arrangements.",
+      contrastBadge: "The Asteria Resolution",
       cards: [
         {
           code: "INCIDENT_01 // CHAT_DEAL",
@@ -77,6 +81,7 @@ export const translations = {
             "Informal WhatsApp and Facebook deals leave you completely exposed. You deliver weeks of hard work, only for clients to renegotiate, delay indefinitely, or ghost entirely with zero accountability.",
           badQuote: "\"I sent the source code, but they blocked me on WhatsApp.\"",
           meta: "RISK: 100% UNPROTECTED",
+          solutionContrast: "100% upfront escrow deposit locked in bank-grade vault before work begins.",
         },
         {
           code: "INCIDENT_02 // NO_CONTRACT",
@@ -86,6 +91,7 @@ export const translations = {
             "Without milestone escrow or verified identities, you are forced to gamble your time. If a dispute happens, there is no formal intermediary, no arbitration, and no way to recover your earnings.",
           badQuote: "\"No contract, no deposit, no way to enforce payment.\"",
           meta: "RECOVERY RATE: 0%",
+          solutionContrast: "Digital milestone contracts with built-in dispute resolution and auto-release timers.",
         },
         {
           code: "INCIDENT_03 // FX_LOCKDOWN",
@@ -95,6 +101,7 @@ export const translations = {
             "International platforms take 20%+ in fees, restrict Tunisian bank accounts, or require black-market currency gymnastics. Getting paid in your own country shouldn't require complex workarounds.",
           badQuote: "\"Struggling to withdraw USD earnings into local Tunisian Dinars.\"",
           meta: "FEE LEAKAGE: 20% - 35%",
+          solutionContrast: "Instant local withdrawals in TND directly to Flouci, Konnect, or your bank RIB.",
         },
       ],
     },
@@ -149,6 +156,15 @@ export const translations = {
         "A flat 12% standard platform fee covers full escrow bank vaulting, dispute arbitration, and payment gateway routing. You keep 88% of every dinar.",
       cohortSpecial: "Founding Freelancers Cohort:",
       launchRateBadge: "Discounted Launch Rate",
+      calculator: {
+        title: "Interactive Net Earnings Calculator",
+        subtitle: "See exactly how much you take home on every project in Tunisian Dinars.",
+        budgetLabel: "Project Contract Amount (TND):",
+        feeLabel: "Standard Platform Fee (12%):",
+        takeHomeLabel: "Your Net Payout (88%):",
+        payoutChannel: "Direct transfer to Flouci, Konnect card, or bank account in TND.",
+        cohortDiscountNotice: "✨ Founding Cohort members receive an exclusive reduced fee at launch!",
+      },
     },
     foundingCohort: {
       badge: "Cohort 01 • Genesis Talent",
@@ -156,9 +172,11 @@ export const translations = {
       titleHighlight: "Help build Tunisia's freelance future.",
       description:
         "We are intentionally curating our first cohort of skilled Tunisian freelancers before releasing the platform to clients. Early sign-ups receive genuine platform incentives and early access.",
-      scarcityTitle: "Cohort 01 Allocation",
+      scarcityTitle: "Cohort 01 Allocation Status",
       scarcityText:
         "Founding slots are prioritized for verified Tunisian talent across Development, Design, Content, and Marketing.",
+      progressClaimed: "184 of 250 founding slots reserved",
+      progressBadge: "74% Reserved",
       ctaButton: "Reserve Your Founding Slot",
       perks: [
         {
@@ -241,33 +259,45 @@ export const translations = {
       title: "Frequently Asked Questions",
       subtitle:
         "Everything you need to know about the Asteria Freelance pre-launch and founding cohort.",
+      categories: {
+        all: "All Questions",
+        escrow: "Escrow & Security",
+        payouts: "Payouts & TND",
+        cohort: "Founding Cohort",
+      },
       items: [
         {
+          category: "escrow",
           question: "How does milestone escrow work on Asteria?",
           answer:
             "When a client accepts your proposal or orders a gig, they must deposit the milestone payment into Asteria's protected escrow account before you start working. Once you submit the deliverable and the client approves it, the funds are released immediately to your Asteria balance for local withdrawal. If a client goes silent after delivery, our auto-release timer protects you.",
         },
         {
+          category: "payouts",
           question: "How do payouts work in Tunisia (Flouci, Konnect, Bank)?",
           answer:
             "Asteria supports native payouts in Tunisian Dinar (TND). You can withdraw your earnings directly to your Flouci mobile wallet, Konnect payment card, or standard Tunisian bank account (RIB transfer) without costly foreign exchange loss or blocked international cards.",
         },
         {
+          category: "cohort",
           question: "What is the Founding Freelancer Cohort?",
           answer:
             "Cohort 01 is our exclusive early-access program for the first wave of vetted Tunisian talent. Members receive lower platform fees during the launch phase, a permanent 'Founding Freelancer' verified badge on their public profile, elevated proposal placement, and direct access to our product team.",
         },
         {
+          category: "payouts",
           question: "How much does Asteria cost to use?",
           answer:
             "Signing up and submitting proposals is completely free. We charge a simple, transparent standard platform fee of 12% only when you successfully complete a paid milestone (giving you an 88% net take-home). Founding cohort members receive an even lower discounted rate during launch.",
         },
         {
+          category: "cohort",
           question: "When is the official platform launching?",
           answer:
             "We are currently in active pre-launch development. Founding Freelancers will receive private invitation codes for early onboarding and profile setup prior to the public client launch. Joining the waitlist secures your early invite.",
         },
         {
+          category: "payouts",
           question: "Can international clients hire me on Asteria?",
           answer:
             "Yes! While Asteria is founded in Tunisia with native TND rails, international clients can fund contracts using international credit/debit cards (via Stripe integration). You receive the equivalent payout settled cleanly in TND without currency conversion hassle.",
@@ -310,6 +340,7 @@ export const translations = {
       cohortBadge: "Cohorte 01 Pré-Lancement",
       navReality: "La Réalité",
       navHowItWorks: "Comment Ça Marche",
+      navCalculator: "Calculateur de Gains",
       navPerks: "Avantages Fondateurs",
       navFaq: "FAQ",
       ctaJoin: "Rejoindre la Liste",
@@ -342,6 +373,8 @@ export const translations = {
       kycPass: "KYC VALIDÉ",
       taxId: "Matricule Fiscal : TN-1849204 // Biométrie Validée",
       localSettlement: "Règlement Local",
+      simulateReleaseBtn: "Simuler la Validation de l'Étape 2",
+      fundsReleasedSuccess: "1 400 TND débloqués instantanément sur compte Konnect !",
     },
     stats: [
       {
@@ -371,6 +404,7 @@ export const translations = {
       titleHighlight: "loterie sans protection",
       subtitle:
         "Des milliers de designers, développeurs, rédacteurs et marketeurs tunisiens talentueux perdent du temps et des revenus chaque mois à cause d'accords informels précaires.",
+      contrastBadge: "La Résolution Asteria",
       cards: [
         {
           code: "INCIDENT_01 // CHAT_DEAL",
@@ -380,6 +414,7 @@ export const translations = {
             "Les deals informels sur WhatsApp ou Facebook vous rendent vulnérable. Vous livrez des semaines d'efforts, pour que le client renégocie, retarde le virement ou disparaisse totalement sans aucun recours.",
           badQuote: "\"J'ai envoyé le code source, puis il m'a bloqué sur WhatsApp.\"",
           meta: "RISQUE : 100% SANS PROTECTION",
+          solutionContrast: "Dépôt 100% garanti bloqué sous séquestre avant le début de votre travail.",
         },
         {
           code: "INCIDENT_02 // SANS_CONTRAT",
@@ -389,6 +424,7 @@ export const translations = {
             "Sans séquestre financier ni identités vérifiées, vous pariez votre temps. En cas de litige, aucun intermédiaire n'existe pour arbitrer ou récupérer vos gains légitimes.",
           badQuote: "\"Aucun contrat, aucun acompte, impossible d'exiger le paiement.\"",
           meta: "TAUX DE RÉCUPÉRATION : 0%",
+          solutionContrast: "Contrats par étapes avec arbitrage automatique et déblocage sécurisé.",
         },
         {
           code: "INCIDENT_03 // BLOCAGE_FX",
@@ -398,6 +434,7 @@ export const translations = {
             "Les plateformes internationales prélèvent plus de 20% de commissions, refusent les comptes bancaires tunisiens ou obligent à passer par le marché noir. Être payé dans son pays ne devrait pas être un parcours du combattant.",
           badQuote: "\"Impossible de retirer mes gains en USD vers des Dinars Tunisiens sans complication.\"",
           meta: "PERTE DE COMMISSIONS : 20% - 35%",
+          solutionContrast: "Retrait local instantané en TND sur Flouci, Konnect ou votre RIB bancaire.",
         },
       ],
     },
@@ -452,6 +489,15 @@ export const translations = {
         "Une commission unique de 12% couvre l'ensemble du séquestre bancaire, l'arbitrage en cas de litige et les frais des passerelles de paiement. Vous conservez 88% de chaque dinar facturé.",
       cohortSpecial: "Cohorte des Freelances Fondateurs :",
       launchRateBadge: "Tarif Réduit de Lancement",
+      calculator: {
+        title: "Calculateur Interactif de Revenus Nets",
+        subtitle: "Estimez précisément vos gains nets pour chaque contrat en Dinars Tunisiens.",
+        budgetLabel: "Montant du Contrat Client (TND) :",
+        feeLabel: "Commission Standard Asteria (12%) :",
+        takeHomeLabel: "Votre Versement Net (88%) :",
+        payoutChannel: "Virement direct vers Flouci, carte Konnect ou RIB bancaire tunisien.",
+        cohortDiscountNotice: "✨ Les membres de la Cohorte Fondatrice bénéficient d'un tarif encore plus avantageux au lancement !",
+      },
     },
     foundingCohort: {
       badge: "Cohorte 01 • Talents Pionniers",
@@ -459,9 +505,11 @@ export const translations = {
       titleHighlight: "Participez à bâtir le futur du freelance en Tunisie.",
       description:
         "Nous sélectionnons rigoureusement notre première cohorte de freelances tunisiens qualifiés avant d'ouvrir la plateforme aux entreprises. Les inscrits bénéficient d'avantages majeurs et d'un accès prioritaire.",
-      scarcityTitle: "Capacité Limitée - Cohorte 01",
+      scarcityTitle: "Statut d'Allocation - Cohorte 01",
       scarcityText:
         "Les places fondatrices sont allouées en priorité aux talents vérifiés en Développement, Design, Rédaction, Vidéo et Marketing.",
+      progressClaimed: "184 sur 250 places fondatrices réservées",
+      progressBadge: "74% Réservé",
       ctaButton: "Réserver Votre Place de Fondateur",
       perks: [
         {
@@ -544,33 +592,45 @@ export const translations = {
       title: "Questions Fréquentes",
       subtitle:
         "Tout ce que vous devez savoir sur le pré-lancement d'Asteria Freelance et la cohorte fondatrice.",
+      categories: {
+        all: "Toutes les Questions",
+        escrow: "Séquestre & Sécurité",
+        payouts: "Paiements & TND",
+        cohort: "Cohorte Fondatrice",
+      },
       items: [
         {
+          category: "escrow",
           question: "Comment fonctionne le séquestre par étape sur Asteria ?",
           answer:
             "Lorsqu'un client accepte votre proposition ou commande une prestation, il doit obligatoirement déposer les fonds sur le compte séquestre sécurisé d'Asteria avant que vous ne commenciez à travailler. Une fois le travail livré et validé par le client, les fonds sont instantanément libérés sur votre solde Asteria pour un retrait local. Si un client ne répond plus après livraison, notre mécanisme de déblocage automatique vous protège.",
         },
         {
+          category: "payouts",
           question: "Comment fonctionnent les retraits en Tunisie (Flouci, Konnect, Banque) ?",
           answer:
             "Asteria intègre nativement les retraits en Dinar Tunisien (TND). Vous pouvez transférer vos gains directement vers votre portefeuille Flouci, votre carte Konnect ou votre compte bancaire tunisien (virement RIB) sans frais de change abusifs ni blocage de cartes bancaires.",
         },
         {
+          category: "cohort",
           question: "Qu'est-ce que la Cohorte des Freelances Fondateurs ?",
           answer:
             "La Cohorte 01 est notre programme d'accès anticipé réservé aux premiers talents tunisiens qualifiés. Les membres bénéficient de commissions réduites lors du lancement, d'un badge officiel permanent 'Freelance Fondateur' sur leur profil, d'une visibilité accrue sur leurs offres et d'un contact direct avec nos équipes produit.",
         },
         {
+          category: "payouts",
           question: "Combien coûte l'utilisation d'Asteria ?",
           answer:
             "L'inscription et la soumission d'offres sont 100% gratuites. Nous appliquons une commission claire de 12% uniquement lorsqu'une mission est menée à bien et payée (vous recevez 88% net). Les membres de la cohorte fondatrice bénéficient d'un tarif encore plus bas pendant le lancement.",
         },
         {
+          category: "cohort",
           question: "Quand aura lieu le lancement officiel ?",
           answer:
             "Nous sommes actuellement en phase active de développement pré-lancement. Les Freelances Fondateurs recevront des invitations privées pour finaliser leur profil avant l'ouverture publique aux clients. L'inscription sur la liste d'attente garantit votre invitation prioritaire.",
         },
         {
+          category: "payouts",
           question: "Des clients internationaux peuvent-ils m'engager sur Asteria ?",
           answer:
             "Oui ! Même si Asteria est ancré en Tunisie avec des rails en TND, les clients internationaux peuvent financer leurs contrats par carte bancaire internationale (via notre intégration Stripe). Vous recevez le paiement équivalent en TND sans complications de change.",

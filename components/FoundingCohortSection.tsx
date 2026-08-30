@@ -8,7 +8,8 @@ import {
   Percent, 
   Compass, 
   Users2, 
-  ArrowRight
+  ArrowRight,
+  TrendingUp
 } from "lucide-react";
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
@@ -70,17 +71,34 @@ export default function FoundingCohortSection() {
                 {t.foundingCohort.description}
               </p>
 
-              {/* Scarcity Box */}
-              <div className={`p-4 rounded-14 border flex items-start gap-3.5 shadow-glow-soft ${
+              {/* Scarcity & Live Capacity Tracker Box */}
+              <div className={`p-5 rounded-16 border space-y-3 shadow-glow-soft ${
                 isDark ? "bg-ast-night/90 border-emerald-500/30" : "bg-emerald-50/60 border-emerald-200"
               }`}>
-                <div className="w-2.5 h-2.5 rounded-pill bg-emerald-500 mt-1.5 animate-pulse-wave flex-shrink-0" />
-                <div>
-                  <div className="ast-kicker text-emerald-500 mb-0.5">{t.foundingCohort.scarcityTitle}</div>
-                  <p className={`text-xs font-mono leading-relaxed ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                    {t.foundingCohort.scarcityText}
-                  </p>
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="ast-kicker text-emerald-500 font-bold flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-wave" />
+                    {t.foundingCohort.scarcityTitle}
+                  </span>
+                  <span className="px-2 py-0.5 rounded-6 bg-emerald-500/20 text-emerald-500 font-bold">
+                    {t.foundingCohort.progressBadge}
+                  </span>
                 </div>
+
+                {/* Progress bar */}
+                <div className="w-full h-2 rounded-pill bg-black/10 dark:bg-white/10 overflow-hidden">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: "74%" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: easeVague }}
+                    className="h-full bg-gradient-to-r from-emerald-500 to-ast-teal-400 rounded-pill"
+                  />
+                </div>
+
+                <p className={`text-xs font-mono leading-relaxed ${isDark ? "text-slate-300" : "text-slate-700"}`}>
+                  {t.foundingCohort.progressClaimed} • {t.foundingCohort.scarcityText}
+                </p>
               </div>
 
               <div className="pt-2">

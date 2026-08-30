@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { UserX, Scale, CreditCard, AlertTriangle, ArrowDownRight } from "lucide-react";
+import { UserX, Scale, CreditCard, AlertTriangle, ArrowDownRight, CheckCircle2 } from "lucide-react";
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
 import { useTheme } from "./ThemeProvider";
@@ -40,7 +40,7 @@ export default function ProblemSection() {
           </p>
         </div>
 
-        {/* 3 Interactive Forensic Problem Cards */}
+        {/* 3 Interactive Forensic Problem Cards with Direct Asteria Resolution */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {t.problem.cards.map((problem, idx) => {
             const Icon = problemIcons[idx] || UserX;
@@ -84,17 +84,30 @@ export default function ProblemSection() {
                         {problem.description}
                       </p>
                     </div>
+
+                    {/* Problem Quote */}
+                    <div className={`p-3 rounded-10 font-mono text-xs italic ${
+                      isDark ? "bg-ast-night/80 text-rose-300/80 border border-rose-500/15" : "bg-rose-50/70 text-rose-700 border border-rose-100"
+                    }`}>
+                      <div className="flex items-start gap-1.5">
+                        <ArrowDownRight className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" />
+                        <span>{problem.badQuote}</span>
+                      </div>
+                    </div>
                   </div>
 
-                  {/* Common Frustration Quote Box */}
-                  <div className={`mt-6 pt-4 border-t -mx-6 -mb-6 p-4 rounded-b-18 ${
-                    isDark ? "bg-ast-night/60 border-ast-teal-400/10" : "bg-slate-50 border-slate-100"
+                  {/* The Asteria Resolution (Direct Problem/Solution Contrast) */}
+                  <div className={`mt-5 pt-3.5 border-t -mx-6 -mb-6 p-4 rounded-b-18 space-y-1.5 ${
+                    isDark ? "bg-ast-teal-900/15 border-ast-teal-400/15" : "bg-teal-50/60 border-teal-100"
                   }`}>
-                    <p className={`text-xs italic font-mono flex items-start gap-1.5 ${
-                      isDark ? "text-slate-400" : "text-slate-600"
+                    <div className="flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                      <span className="ast-kicker text-emerald-500 text-[10px]">{t.problem.contrastBadge}</span>
+                    </div>
+                    <p className={`text-xs font-medium leading-snug pl-5 ${
+                      isDark ? "text-slate-200" : "text-slate-800"
                     }`}>
-                      <ArrowDownRight className="w-3.5 h-3.5 text-rose-500 flex-shrink-0 mt-0.5" />
-                      <span>{problem.badQuote}</span>
+                      {problem.solutionContrast}
                     </p>
                   </div>
                 </InteractiveGlowCard>

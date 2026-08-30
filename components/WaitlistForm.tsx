@@ -12,7 +12,11 @@ import {
   Check, 
   Sparkles,
   ArrowRight,
-  Lock
+  Lock,
+  User,
+  Mail,
+  Briefcase,
+  Compass
 } from "lucide-react";
 import { WaitlistFormData } from "@/lib/types";
 import { submitWaitlistSignup } from "@/lib/supabase";
@@ -60,18 +64,20 @@ export default function WaitlistForm() {
     }
   };
 
+  const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim());
+  const isNameValid = formData.fullName.trim().length >= 2;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Client validation
-    if (!formData.fullName.trim() || formData.fullName.trim().length < 2) {
+    if (!isNameValid) {
       setStatus("error");
       setErrorMessage(t.waitlist.validationName);
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+    if (!isEmailValid) {
       setStatus("error");
       setErrorMessage(t.waitlist.validationEmail);
       return;
@@ -360,44 +366,64 @@ export default function WaitlistForm() {
                     
                     {/* Full Name */}
                     <div className="space-y-2 text-left">
-                      <label 
-                        htmlFor="fullName"
-                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
-                      >
-                        {t.waitlist.fullNameLabel} <span className="text-ast-teal-400">*</span>
-                      </label>
-                      <input
-                        id="fullName"
-                        name="fullName"
-                        type="text"
-                        required
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        placeholder={t.waitlist.fullNamePlaceholder}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
-                        disabled={status === "loading"}
-                      />
+                      <div className="flex items-center justify-between">
+                        <label 
+                          htmlFor="fullName"
+                          className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                        >
+                          {t.waitlist.fullNameLabel} <span className="text-ast-teal-400">*</span>
+                        </label>
+                        {isNameValid && (
+                          <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-mono">
+                            <Check className="w-3 h-3" /> Valid
+                          </span>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          id="fullName"
+                          name="fullName"
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={handleInputChange}
+                          placeholder={t.waitlist.fullNamePlaceholder}
+                          className="w-full pl-10 pr-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
+                          disabled={status === "loading"}
+                        />
+                      </div>
                     </div>
 
                     {/* Email */}
                     <div className="space-y-2 text-left">
-                      <label 
-                        htmlFor="email"
-                        className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
-                      >
-                        {t.waitlist.emailLabel} <span className="text-ast-teal-400">*</span>
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder={t.waitlist.emailPlaceholder}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
-                        disabled={status === "loading"}
-                      />
+                      <div className="flex items-center justify-between">
+                        <label 
+                          htmlFor="email"
+                          className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
+                        >
+                          {t.waitlist.emailLabel} <span className="text-ast-teal-400">*</span>
+                        </label>
+                        {isEmailValid && (
+                          <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-mono">
+                            <Check className="w-3 h-3" /> Valid
+                          </span>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <input
+                          id="email"
+                          name="email"
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          placeholder={t.waitlist.emailPlaceholder}
+                          className="w-full pl-10 pr-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
+                          disabled={status === "loading"}
+                        />
+                      </div>
                     </div>
 
                   </div>
@@ -412,24 +438,27 @@ export default function WaitlistForm() {
                       >
                         {t.waitlist.skillLabel} <span className="text-ast-teal-400">*</span>
                       </label>
-                      <select
-                        id="skillCategory"
-                        name="skillCategory"
-                        required
-                        value={formData.skillCategory}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
-                        disabled={status === "loading"}
-                      >
-                        <option value="" disabled className={isDark ? "text-slate-500" : "text-slate-400"}>
-                          {t.waitlist.skillPlaceholder}
-                        </option>
-                        {t.categories.map((category) => (
-                          <option key={category} value={category} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
-                            {category}
+                      <div className="relative">
+                        <Briefcase className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <select
+                          id="skillCategory"
+                          name="skillCategory"
+                          required
+                          value={formData.skillCategory}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
+                          disabled={status === "loading"}
+                        >
+                          <option value="" disabled className={isDark ? "text-slate-500" : "text-slate-400"}>
+                            {t.waitlist.skillPlaceholder}
                           </option>
-                        ))}
-                      </select>
+                          {t.categories.map((category) => (
+                            <option key={category} value={category} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
                     {/* Referral Source */}
@@ -440,23 +469,26 @@ export default function WaitlistForm() {
                       >
                         {t.waitlist.referralLabel} <span className="text-slate-400 text-[10px] normal-case">{t.waitlist.referralOptional}</span>
                       </label>
-                      <select
-                        id="referralSource"
-                        name="referralSource"
-                        value={formData.referralSource}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
-                        disabled={status === "loading"}
-                      >
-                        <option value="" className={isDark ? "text-slate-500" : "text-slate-400"}>
-                          {t.waitlist.referralPlaceholder}
-                        </option>
-                        {t.referrals.map((source) => (
-                          <option key={source} value={source} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
-                            {source}
+                      <div className="relative">
+                        <Compass className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <select
+                          id="referralSource"
+                          name="referralSource"
+                          value={formData.referralSource}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3.5 rounded-12 ast-glass-input text-sm cursor-pointer font-sans"
+                          disabled={status === "loading"}
+                        >
+                          <option value="" className={isDark ? "text-slate-500" : "text-slate-400"}>
+                            {t.waitlist.referralPlaceholder}
                           </option>
-                        ))}
-                      </select>
+                          {t.referrals.map((source) => (
+                            <option key={source} value={source} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
+                              {source}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                     </div>
 
                   </div>
