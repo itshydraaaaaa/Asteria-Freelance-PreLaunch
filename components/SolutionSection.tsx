@@ -13,53 +13,14 @@ import {
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function SolutionSection() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
-  const steps = [
-    {
-      stepNumber: "01",
-      stepTag: "STAGE // 01",
-      icon: Lock,
-      title: "Milestone Escrow Deposit",
-      description:
-        "Before you begin any milestone, the client deposits the agreed payment into Asteria's protected escrow vault. Multi-milestone projects allow you to work in safe, structured increments.",
-      badge: "100% Guaranteed Deposit",
-      telemetry: "STATUS: FUNDS_LOCKED_UPFRONT",
-    },
-    {
-      stepNumber: "02",
-      stepTag: "STAGE // 02",
-      icon: UserCheck,
-      title: "KYC-Verified Counterparts",
-      description:
-        "Real identity verification on both sides eliminates fake profiles, burner clients, and serial non-payers. You know exactly who you're contracting with from day one.",
-      badge: "Zero Anonymous Burners",
-      telemetry: "AUTH: NATIONAL_TAX_ID_VALIDATED",
-    },
-    {
-      stepNumber: "03",
-      stepTag: "STAGE // 03",
-      icon: Wallet,
-      title: "Native TND Payouts (Flouci & Konnect)",
-      description:
-        "When deliverables are approved, funds release instantly to your account. Withdraw directly in Tunisian Dinar (TND) to your Flouci wallet, Konnect card, or local bank account.",
-      badge: "Zero FX Conversion Friction",
-      telemetry: "SETTLEMENT: INSTANT_WALLET_DISPATCH",
-    },
-    {
-      stepNumber: "04",
-      stepTag: "STAGE // 04",
-      icon: Wand2,
-      title: "Smart Proposal & Scope Assistance",
-      description:
-        "Need help phrasing a tight project scope or polishing a client pitch? Integrated AI writing assistance helps you draft clear proposals in seconds without tedious back-and-forth.",
-      badge: "Intelligent Convenience",
-      telemetry: "ASSIST: DRAFT_ACCELERATOR",
-    },
-  ];
+  const stepIcons = [Lock, UserCheck, Wallet, Wand2];
 
   return (
     <section id="how-it-works" className="py-20 md:py-28 relative">
@@ -74,26 +35,25 @@ export default function SolutionSection() {
             isDark ? "bg-ast-night-2/90 border-ast-teal-400/25 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
           }`}>
             <Cpu className="w-3.5 h-3.5 text-ast-teal-400" />
-            <span className="ast-kicker">The Asteria Protocol • Preview</span>
+            <span className="ast-kicker">{t.solution.badge}</span>
           </div>
 
           <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
             isDark ? "text-white" : "text-slate-900"
           }`}>
-            How Asteria Protects Your{" "}
-            <span className="ast-gradient-cyan block mt-1">Work & Take-Home Income</span>
+            {t.solution.titlePre}
+            <span className="ast-gradient-cyan block mt-1">{t.solution.titleHighlight}</span>
           </h2>
 
           <p className={`text-base sm:text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-            A preview of the mechanics designed to replace informal anxiety
-            with bank-grade payment security and local convenience.
+            {t.solution.subtitle}
           </p>
         </div>
 
         {/* 4 Connected Protocol Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 relative">
-          {steps.map((step, idx) => {
-            const Icon = step.icon;
+          {t.solution.steps.map((step, idx) => {
+            const Icon = stepIcons[idx] || Lock;
             return (
               <motion.div
                 key={idx}
@@ -170,14 +130,14 @@ export default function SolutionSection() {
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="ast-kicker text-emerald-500 font-bold">TRANSPARENT LEDGER</span>
-                <span className="text-[10px] font-mono text-slate-400">• NO HIDDEN DEDUCTIONS</span>
+                <span className="ast-kicker text-emerald-500 font-bold">{t.solution.ledgerBadge}</span>
+                <span className="text-[10px] font-mono text-slate-400">{t.solution.ledgerSubtitle}</span>
               </div>
               <h4 className={`font-heading font-extrabold text-xl ${isDark ? "text-white" : "text-slate-900"}`}>
-                Honest, Fair Fees — 88% Net Freelancer Take-Home
+                {t.solution.ledgerTitle}
               </h4>
               <p className={`text-sm max-w-xl ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-                A flat 12% standard platform fee covers full escrow bank vaulting, dispute arbitration, and payment gateway routing. You keep 88% of every dinar.
+                {t.solution.ledgerDesc}
               </p>
             </div>
           </div>
@@ -186,10 +146,10 @@ export default function SolutionSection() {
             isDark ? "bg-ast-night/80 border-ast-teal-400/20" : "bg-slate-50 border-slate-200"
           }`}>
             <span className="ast-kicker text-emerald-500 block mb-1">
-              Founding Freelancers Cohort:
+              {t.solution.cohortSpecial}
             </span>
             <span className="px-3.5 py-1.5 rounded-8 bg-emerald-500/15 border border-emerald-500/35 text-emerald-500 font-mono text-sm font-bold inline-block shadow-glow-soft">
-              Discounted Launch Rate
+              {t.solution.launchRateBadge}
             </span>
           </div>
         </motion.div>

@@ -13,41 +13,14 @@ import {
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function FoundingCohortSection() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
-  const perks = [
-    {
-      code: "PERK_01",
-      icon: Percent,
-      title: "Discounted Platform Fee",
-      description:
-        "Founding Freelancers in Cohort 01 lock in a special reduced platform fee throughout our launch phase, keeping more of your hard-earned dinars.",
-    },
-    {
-      code: "PERK_02",
-      icon: Award,
-      title: "Founding Member Profile Badge",
-      description:
-        "Stand out to top clients with a permanent 'Founding Freelancer' badge displayed on your public profile and proposal bids.",
-    },
-    {
-      code: "PERK_03",
-      icon: Compass,
-      title: "Priority Project Visibility",
-      description:
-        "When verified clients post jobs, Founding Freelancer proposals receive elevated search placement and early notification pings.",
-    },
-    {
-      code: "PERK_04",
-      icon: Users2,
-      title: "Direct Influence on Features",
-      description:
-        "Join a dedicated private feedback channel with our core engineering team to request tools, payout features, and workflow improvements.",
-    },
-  ];
+  const perkIcons = [Percent, Award, Compass, Users2];
 
   const scrollToWaitlist = () => {
     const el = document.getElementById("waitlist");
@@ -81,21 +54,20 @@ export default function FoundingCohortSection() {
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-pill bg-emerald-500/15 border border-emerald-500/35 text-emerald-500 shadow-glow-soft">
                 <Sparkles className="w-3.5 h-3.5" />
-                <span className="ast-kicker">Cohort 01 • Genesis Talent</span>
+                <span className="ast-kicker">{t.foundingCohort.badge}</span>
               </div>
 
               <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
                 isDark ? "text-white" : "text-slate-900"
               }`}>
-                Don't just join at launch.{" "}
+                {t.foundingCohort.titlePre}
                 <span className="text-emerald-500 block mt-1">
-                  Help build Tunisia's freelance future.
+                  {t.foundingCohort.titleHighlight}
                 </span>
               </h2>
 
               <p className={`text-base leading-relaxed ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-                We are intentionally curating our first cohort of skilled Tunisian freelancers
-                before releasing the platform to clients. Early sign-ups receive genuine platform incentives and early access.
+                {t.foundingCohort.description}
               </p>
 
               {/* Scarcity Box */}
@@ -104,9 +76,9 @@ export default function FoundingCohortSection() {
               }`}>
                 <div className="w-2.5 h-2.5 rounded-pill bg-emerald-500 mt-1.5 animate-pulse-wave flex-shrink-0" />
                 <div>
-                  <div className="ast-kicker text-emerald-500 mb-0.5">Cohort 01 Allocation</div>
+                  <div className="ast-kicker text-emerald-500 mb-0.5">{t.foundingCohort.scarcityTitle}</div>
                   <p className={`text-xs font-mono leading-relaxed ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                    Founding slots are prioritized for verified Tunisian talent across Development, Design, Content, and Marketing.
+                    {t.foundingCohort.scarcityText}
                   </p>
                 </div>
               </div>
@@ -116,7 +88,7 @@ export default function FoundingCohortSection() {
                   onClick={scrollToWaitlist}
                   className="px-7 py-4 rounded-14 font-heading font-bold text-sm text-ast-night bg-emerald-400 hover:bg-emerald-300 active:scale-95 transition-all duration-fast ease-courant shadow-glow-soft flex items-center gap-2.5 group"
                 >
-                  <span>Reserve Your Founding Slot</span>
+                  <span>{t.foundingCohort.ctaButton}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -124,8 +96,8 @@ export default function FoundingCohortSection() {
 
             {/* Right Perks Grid */}
             <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {perks.map((perk, idx) => {
-                const Icon = perk.icon;
+              {t.foundingCohort.perks.map((perk, idx) => {
+                const Icon = perkIcons[idx] || Percent;
                 return (
                   <motion.div
                     key={idx}

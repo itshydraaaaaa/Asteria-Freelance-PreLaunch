@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Sora, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -87,7 +88,9 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
     >
       <body className="min-h-screen font-sans antialiased relative">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <LanguageProvider>{children}</LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

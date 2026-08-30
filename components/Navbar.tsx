@@ -4,12 +4,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Sparkles, Menu, X, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
+import { LanguageToggle } from "./LanguageToggle";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme } = useTheme();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -86,7 +89,7 @@ export default function Navbar() {
               }`}>
                 Asteria
                 <span className="ast-kicker text-ast-teal-400 px-2 py-0.5 rounded-6 bg-ast-teal-900/30 border border-ast-teal-400/25">
-                  Freelance
+                  {t.navbar.brandTag}
                 </span>
               </span>
             </div>
@@ -102,43 +105,44 @@ export default function Navbar() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ast-teal-400 opacity-70"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-ast-teal-400"></span>
             </span>
-            <span className="ast-kicker">Cohort 01 Pre-Launch</span>
+            <span className="ast-kicker">{t.navbar.cohortBadge}</span>
           </div>
         </div>
 
         {/* Desktop Nav Links */}
-        <nav className={`hidden md:flex items-center gap-8 text-sm font-medium ${
+        <nav className={`hidden md:flex items-center gap-7 text-sm font-medium ${
           isDark ? "text-slate-300" : "text-slate-700"
         }`}>
           <button
             onClick={() => scrollToSection("the-problem")}
             className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant focus:outline-none"
           >
-            The Reality
+            {t.navbar.navReality}
           </button>
           <button
             onClick={() => scrollToSection("how-it-works")}
             className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant focus:outline-none"
           >
-            How It Works
+            {t.navbar.navHowItWorks}
           </button>
           <button
             onClick={() => scrollToSection("founding-cohort")}
             className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant flex items-center gap-1.5 text-ast-teal-400 focus:outline-none font-semibold"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            Founding Perks
+            {t.navbar.navPerks}
           </button>
           <button
             onClick={() => scrollToSection("faq")}
             className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant focus:outline-none"
           >
-            FAQ
+            {t.navbar.navFaq}
           </button>
         </nav>
 
-        {/* Right CTA & Theme Toggle */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right CTA, Language Toggle & Theme Toggle */}
+        <div className="hidden sm:flex items-center gap-2.5">
+          <LanguageToggle />
           <ThemeToggle />
 
           <button
@@ -147,13 +151,14 @@ export default function Navbar() {
           >
             <span className="relative z-10 flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-ast-teal-900" />
-              Join Waitlist
+              {t.navbar.ctaJoin}
             </span>
           </button>
         </div>
 
-        {/* Mobile Menu & Theme Toggle Button */}
+        {/* Mobile Menu, Language Toggle & Theme Toggle Button */}
         <div className="flex items-center gap-2 md:hidden">
+          <LanguageToggle />
           <ThemeToggle />
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -176,7 +181,7 @@ export default function Navbar() {
         }`}>
           <div className="flex items-center gap-2 px-3 py-1.5 rounded-8 bg-ast-teal-900/10 border border-ast-teal-400/25 text-xs font-mono text-ast-teal-400">
             <span className="h-2 w-2 rounded-full bg-ast-teal-400"></span>
-            <span className="ast-kicker">Cohort 01 Pre-Launch Active</span>
+            <span className="ast-kicker">{t.navbar.cohortActive}</span>
           </div>
 
           <div className={`flex flex-col space-y-3 pt-2 text-base font-medium ${
@@ -186,26 +191,26 @@ export default function Navbar() {
               onClick={() => scrollToSection("the-problem")}
               className="text-left py-2 hover:text-ast-teal-400 border-b border-black/5 dark:border-white/5"
             >
-              The Reality
+              {t.navbar.navReality}
             </button>
             <button
               onClick={() => scrollToSection("how-it-works")}
               className="text-left py-2 hover:text-ast-teal-400 border-b border-black/5 dark:border-white/5"
             >
-              How It Works (Escrow & KYC)
+              {t.navbar.navHowItWorks}
             </button>
             <button
               onClick={() => scrollToSection("founding-cohort")}
               className="text-left py-2 text-ast-teal-400 flex items-center gap-2 border-b border-black/5 dark:border-white/5 font-semibold"
             >
               <Sparkles className="w-4 h-4" />
-              Founding Perks
+              {t.navbar.navPerks}
             </button>
             <button
               onClick={() => scrollToSection("faq")}
               className="text-left py-2 hover:text-ast-teal-400"
             >
-              Frequently Asked Questions
+              {t.navbar.navFaq}
             </button>
           </div>
 
@@ -215,7 +220,7 @@ export default function Navbar() {
               className="w-full py-3.5 rounded-12 text-center font-heading font-semibold text-ast-night bg-ast-teal-400 hover:bg-white shadow-glow-soft flex items-center justify-center gap-2 transition-all duration-fast"
             >
               <ShieldCheck className="w-5 h-5 text-ast-teal-900" />
-              Claim Founding Spot
+              {t.navbar.claimSpot}
             </button>
           </div>
         </div>

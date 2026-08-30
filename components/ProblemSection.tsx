@@ -6,43 +6,14 @@ import { UserX, Scale, CreditCard, AlertTriangle, ArrowDownRight } from "lucide-
 import { easeVague, durSlow, WaveLineDivider } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function ProblemSection() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
-  const problems = [
-    {
-      code: "INCIDENT_01 // CHAT_DEAL",
-      icon: UserX,
-      tag: "Ghosting & Non-Payment",
-      title: "Deliver the files, get left on 'Seen'",
-      description:
-        "Informal WhatsApp and Facebook deals leave you completely exposed. You deliver weeks of hard work, only for clients to renegotiate, delay indefinitely, or ghost entirely with zero accountability.",
-      badQuote: "\"I sent the source code, but they blocked me on WhatsApp.\"",
-      meta: "RISK: 100% UNPROTECTED",
-    },
-    {
-      code: "INCIDENT_02 // NO_CONTRACT",
-      icon: Scale,
-      tag: "Zero Legal Recourse",
-      title: "Gentlemen's agreements without protection",
-      description:
-        "Without milestone escrow or verified identities, you are forced to gamble your time. If a dispute happens, there is no formal intermediary, no arbitration, and no way to recover your earnings.",
-      badQuote: "\"No contract, no deposit, no way to enforce payment.\"",
-      meta: "RECOVERY RATE: 0%",
-    },
-    {
-      code: "INCIDENT_03 // FX_LOCKDOWN",
-      icon: CreditCard,
-      tag: "Payment Friction & FX",
-      title: "Foreign platforms, blocked Tunisian cards",
-      description:
-        "International platforms take 20%+ in fees, restrict Tunisian bank accounts, or require black-market currency gymnastics. Getting paid in your own country shouldn't require complex workarounds.",
-      badQuote: "\"Struggling to withdraw USD earnings into local Tunisian Dinars.\"",
-      meta: "FEE LEAKAGE: 20% - 35%",
-    },
-  ];
+  const problemIcons = [UserX, Scale, CreditCard];
 
   return (
     <section id="the-problem" className="py-20 md:py-28 relative">
@@ -52,28 +23,27 @@ export default function ProblemSection() {
         <div className="max-w-3xl mb-14 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-pill bg-rose-500/10 border border-rose-500/25 text-rose-400">
             <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
-            <span className="ast-kicker">The Reality of Freelancing in Tunisia</span>
+            <span className="ast-kicker">{t.problem.badge}</span>
           </div>
 
           <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-tight ${
             isDark ? "text-white" : "text-slate-900"
           }`}>
-            Freelancing shouldn't feel like an{" "}
+            {t.problem.titlePre}
             <span className="text-rose-500 inline-block underline decoration-rose-500/30 decoration-2 underline-offset-8">
-              unprotected gamble
+              {t.problem.titleHighlight}
             </span>.
           </h2>
 
           <p className={`text-base sm:text-lg ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-            Thousands of talented Tunisian designers, developers, writers, and marketers
-            lose time and income every month to broken informal arrangements.
+            {t.problem.subtitle}
           </p>
         </div>
 
         {/* 3 Interactive Forensic Problem Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {problems.map((problem, idx) => {
-            const Icon = problem.icon;
+          {t.problem.cards.map((problem, idx) => {
+            const Icon = problemIcons[idx] || UserX;
             return (
               <motion.div
                 key={idx}

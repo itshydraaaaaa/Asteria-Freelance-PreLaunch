@@ -7,18 +7,18 @@ import {
   ArrowRight, 
   Lock, 
   Wallet, 
-  CheckCircle2, 
   Sparkles,
   ChevronDown,
   Fingerprint,
   Check
 } from "lucide-react";
-import { PLATFORM_STATS } from "@/lib/constants";
 import { easeVague, durSlow } from "@/lib/motion";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Hero() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
   const scrollToSection = (id: string) => {
@@ -92,7 +92,7 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-pill bg-ast-teal-400 opacity-80"></span>
                 <span className="relative inline-flex rounded-pill h-2 w-2 bg-ast-teal-400"></span>
               </span>
-              <span className="ast-kicker">Escrow Infrastructure v2.1 • Tunisia</span>
+              <span className="ast-kicker">{t.hero.badge}</span>
             </motion.div>
 
             {/* Main Headline with Liquid Metal Gradient */}
@@ -104,9 +104,9 @@ export default function Hero() {
                 isDark ? "text-white" : "text-slate-900"
               }`}
             >
-              Get paid, guaranteed.{" "}
+              {t.hero.h1Line1}{" "}
               <span className="ast-gradient-liquid block mt-1">
-                Never chase an unpaid invoice again.
+                {t.hero.h1Line2}
               </span>
             </motion.h1>
 
@@ -119,22 +119,7 @@ export default function Hero() {
                 isDark ? "text-slate-300" : "text-slate-600"
               }`}
             >
-              Asteria Freelance is built specifically for Tunisian talent.
-              Every contract is secured by{" "}
-              <strong className={`font-semibold underline decoration-ast-teal-400/40 decoration-2 underline-offset-4 ${
-                isDark ? "text-white" : "text-slate-900"
-              }`}>
-                milestone escrow
-              </strong>,{" "}
-              <strong className={`font-semibold underline decoration-ast-teal-400/40 decoration-2 underline-offset-4 ${
-                isDark ? "text-white" : "text-slate-900"
-              }`}>
-                KYC-verified identities
-              </strong>, and{" "}
-              <strong className="text-ast-teal-400 font-semibold">
-                direct local payouts in TND
-              </strong>{" "}
-              via Flouci, Konnect, and local banks.
+              {t.hero.subheadline}
             </motion.p>
 
             {/* CTAs */}
@@ -150,7 +135,7 @@ export default function Hero() {
               >
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
                 <span className="relative z-10 flex items-center gap-2">
-                  Claim Founding Freelancer Spot
+                  {t.hero.ctaPrimary}
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-fast ease-courant" />
                 </span>
               </button>
@@ -163,7 +148,7 @@ export default function Hero() {
                     : "bg-white hover:bg-slate-50 border-slate-200 text-slate-800 shadow-sm"
                 }`}
               >
-                <span>See how it works</span>
+                <span>{t.hero.ctaSecondary}</span>
                 <ChevronDown className="w-4 h-4 text-slate-400" />
               </button>
             </motion.div>
@@ -176,9 +161,7 @@ export default function Hero() {
               className="flex items-center gap-2.5 text-xs text-slate-400 font-mono"
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>
-                Cohort 01 members receive a <strong className={`font-medium ${isDark ? "text-slate-200" : "text-slate-800"}`}>discounted platform fee</strong> & Founding Member badge.
-              </span>
+              <span>{t.hero.foundingIncentive}</span>
             </motion.div>
           </div>
 
@@ -210,7 +193,7 @@ export default function Hero() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="ast-kicker text-emerald-400">ESCROW VAULT ACTIVE</span>
+                        <span className="ast-kicker text-emerald-400">{t.hero.terminalVaultActive}</span>
                         <span className="h-1.5 w-1.5 rounded-pill bg-emerald-400 animate-pulse-wave" />
                       </div>
                       <div className={`text-xs font-mono tracking-wider ${isDark ? "text-slate-400" : "text-slate-500"}`}>
@@ -223,7 +206,7 @@ export default function Hero() {
                     <span className={`ast-kicker px-2 py-0.5 rounded-6 border text-ast-teal-400 ${
                       isDark ? "bg-ast-night border-ast-teal-400/20" : "bg-slate-100 border-slate-200"
                     }`}>
-                      TND NATIVE
+                      {t.hero.tndNative}
                     </span>
                   </div>
                 </div>
@@ -237,7 +220,7 @@ export default function Hero() {
                       <div className="w-4 h-4 rounded-full bg-emerald-500/20 flex items-center justify-center">
                         <Check className="w-3 h-3 text-emerald-500" />
                       </div>
-                      Milestone 1: Brand & UI Prototype
+                      {t.hero.milestone1Title}
                     </span>
                     <span className="text-xs font-mono font-bold text-emerald-500 tracking-wider bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
                       +650 TND
@@ -245,10 +228,10 @@ export default function Hero() {
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono pt-1">
-                    <span>Delivery Approved</span>
+                    <span>{t.hero.milestone1Approved}</span>
                     <span className="text-emerald-500 font-medium flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      Released to Flouci Wallet
+                      {t.hero.milestone1Released}
                     </span>
                   </div>
                 </div>
@@ -263,7 +246,7 @@ export default function Hero() {
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-pill bg-ast-teal-400 opacity-75" />
                         <span className="relative inline-flex rounded-pill h-2 w-2 bg-ast-teal-400" />
                       </span>
-                      Milestone 2: Frontend & API Delivery
+                      {t.hero.milestone2Title}
                     </span>
                     <span className="text-xs font-mono font-bold text-ast-teal-400 tracking-wider bg-ast-teal-900/20 px-2 py-0.5 rounded border border-ast-teal-400/30">
                       1,400 TND
@@ -273,9 +256,9 @@ export default function Hero() {
                   <div className="flex items-center justify-between text-[11px] font-mono pt-1">
                     <span className="text-amber-500 flex items-center gap-1.5 font-medium">
                       <Lock className="w-3 h-3 text-amber-500" />
-                      Funds Secured in Vault
+                      {t.hero.milestone2Locked}
                     </span>
-                    <span className={isDark ? "text-slate-300" : "text-slate-600"}>Locked Until You Deliver</span>
+                    <span className={isDark ? "text-slate-300" : "text-slate-600"}>{t.hero.milestone2Until}</span>
                   </div>
                 </div>
 
@@ -289,10 +272,10 @@ export default function Hero() {
                     </div>
                     <div>
                       <div className={`font-semibold flex items-center gap-1.5 ${isDark ? "text-slate-200" : "text-slate-800"}`}>
-                        <span>Verified Client: TechLab S.A.R.L</span>
-                        <span className="px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-500 text-[9px] font-mono font-bold">KYC PASS</span>
+                        <span>{t.hero.verifiedClient}</span>
+                        <span className="px-1 py-0.2 rounded bg-emerald-500/20 text-emerald-500 text-[9px] font-mono font-bold">{t.hero.kycPass}</span>
                       </div>
-                      <span className="text-[10px] text-slate-400 font-mono">Tax ID: TN-1849204 // Biometrics Validated</span>
+                      <span className="text-[10px] text-slate-400 font-mono">{t.hero.taxId}</span>
                     </div>
                   </div>
                   <ShieldCheck className="w-5 h-5 text-ast-teal-400" />
@@ -302,7 +285,7 @@ export default function Hero() {
                 <div className="pt-2 border-t border-ast-teal-400/15 flex items-center justify-between text-xs text-slate-400 font-mono">
                   <span className="flex items-center gap-1.5">
                     <Wallet className="w-3.5 h-3.5 text-ast-teal-400" />
-                    Local Settlement
+                    {t.hero.localSettlement}
                   </span>
                   <div className={`flex items-center gap-1.5 font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                     <span className={`px-2 py-0.5 rounded-6 border text-[10px] ${isDark ? "bg-ast-night border-ast-teal-400/25" : "bg-white border-slate-200"}`}>Flouci</span>
@@ -325,7 +308,7 @@ export default function Hero() {
           transition={{ duration: durSlow, delay: 0.2, ease: easeVague }}
           className="mt-16 md:mt-20 pt-10 border-t border-ast-teal-400/15 grid grid-cols-2 md:grid-cols-4 gap-6"
         >
-          {PLATFORM_STATS.map((stat, idx) => (
+          {t.stats.map((stat, idx) => (
             <div key={idx} className={`space-y-1.5 p-4 rounded-14 border transition-all duration-fast ${
               isDark 
                 ? "bg-ast-night-2/40 border-ast-teal-400/10 hover:border-ast-teal-400/25" 

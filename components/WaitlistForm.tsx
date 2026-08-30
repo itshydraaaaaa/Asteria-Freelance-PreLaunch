@@ -14,15 +14,16 @@ import {
   ArrowRight,
   Lock
 } from "lucide-react";
-import { SKILL_CATEGORIES, REFERRAL_SOURCES } from "@/lib/constants";
 import { WaitlistFormData } from "@/lib/types";
 import { submitWaitlistSignup } from "@/lib/supabase";
 import { trackEvent } from "@/lib/analytics";
 import { easeVague, durSlow, FivePointWaveLoader, WaveLineDivider } from "@/lib/motion";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function WaitlistForm() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
   const [formData, setFormData] = useState<WaitlistFormData>({
@@ -65,20 +66,20 @@ export default function WaitlistForm() {
     // Client validation
     if (!formData.fullName.trim() || formData.fullName.trim().length < 2) {
       setStatus("error");
-      setErrorMessage("Please enter your full name.");
+      setErrorMessage(t.waitlist.validationName);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
       setStatus("error");
-      setErrorMessage("Please provide a valid email address.");
+      setErrorMessage(t.waitlist.validationEmail);
       return;
     }
 
     if (!formData.skillCategory) {
       setStatus("error");
-      setErrorMessage("Please select your primary skill category.");
+      setErrorMessage(t.waitlist.validationSkill);
       return;
     }
 
@@ -106,11 +107,11 @@ export default function WaitlistForm() {
         trackEvent("waitlist_signup_duplicate", { email: formData.email });
       } else {
         setStatus("error");
-        setErrorMessage(res.message || "Failed to submit. Please try again.");
+        setErrorMessage(res.message || t.waitlist.errorGeneric);
       }
     } catch (err: any) {
       setStatus("error");
-      setErrorMessage("A network error occurred. Please check your connection.");
+      setErrorMessage(t.waitlist.errorNetwork);
     }
   };
 
@@ -124,9 +125,7 @@ export default function WaitlistForm() {
 
   const handleSocialShare = (platform: "whatsapp" | "linkedin" | "twitter") => {
     const shareUrl = typeof window !== "undefined" ? window.location.href : "https://asteriafreelance.vercel.app";
-    const text = encodeURIComponent(
-      "Tunisia's first freelance marketplace with milestone escrow & Flouci/Konnect payouts is launching soon. Join the founding freelancer cohort with me:"
-    );
+    const text = encodeURIComponent(t.waitlist.shareSocialText);
 
     let url = "";
     if (platform === "whatsapp") {
@@ -176,17 +175,21 @@ export default function WaitlistForm() {
                 <div className="space-y-2">
                   <div className="inline-flex items-center gap-2 px-4 py-1 rounded-pill bg-emerald-500/10 border border-emerald-500/30 text-emerald-500">
                     <Sparkles className="w-3.5 h-3.5" />
-                    <span className="ast-kicker">Cohort 01 Verified Reservation</span>
+                    <span className="ast-kicker">{t.waitlist.successBadge}</span>
                   </div>
                   <h3 className={`font-heading font-extrabold text-2xl sm:text-3xl lg:text-4xl ${
                     isDark ? "text-white" : "text-slate-900"
                   }`}>
-                    Welcome aboard, {formData.fullName.split(" ")[0]}!
+                    {t.waitlist.successTitle}, {formData.fullName.split(" ")[0]}!
                   </h3>
                   <p className={`text-sm sm:text-base max-w-lg mx-auto leading-relaxed ${
                     isDark ? "text-slate-300" : "text-slate-600"
                   }`}>
-                    You have secured your priority spot in the <strong className="text-emerald-500 font-semibold">Founding Freelancer Cohort</strong>. We will send an onboarding invitation code directly to <span className={`font-mono font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{formData.email}</span> when launch access begins.
+                    {t.waitlist.successMsgPre}
+                    <strong className="text-emerald-500 font-semibold">{t.waitlist.successMsgCohort}</strong>
+                    {t.waitlist.successMsgPost}
+                    <span className={`font-mono font-medium ${isDark ? "text-white" : "text-slate-900"}`}>{formData.email}</span>
+                    {t.waitlist.successMsgEnd}
                   </p>
                 </div>
 
@@ -222,27 +225,27 @@ export default function WaitlistForm() {
                       </div>
                       <div>
                         <span className={`font-heading font-extrabold text-sm block ${isDark ? "text-white" : "text-slate-900"}`}>
-                          Asteria Freelance Pass
+                          {t.waitlist.passTitle}
                         </span>
                         <span className="font-mono text-[9px] text-ast-teal-400 tracking-wider">
-                          GENESIS COHORT 01
+                          {t.waitlist.passGenesis}
                         </span>
                       </div>
                     </div>
                     
                     <span className="ast-kicker text-emerald-500 px-2.5 py-1 rounded-6 bg-emerald-500/15 border border-emerald-500/40">
-                      FOUNDING TALENT
+                      {t.waitlist.passFoundingTalent}
                     </span>
                   </div>
 
                   {/* Pass Metadata Grid */}
                   <div className="grid grid-cols-2 gap-4 text-xs font-mono">
                     <div>
-                      <span className="ast-kicker text-slate-400 block text-[9px]">MEMBER NAME</span>
+                      <span className="ast-kicker text-slate-400 block text-[9px]">{t.waitlist.passMemberName}</span>
                       <span className={`font-semibold truncate block text-sm pt-0.5 ${isDark ? "text-white" : "text-slate-900"}`}>{formData.fullName}</span>
                     </div>
                     <div>
-                      <span className="ast-kicker text-slate-400 block text-[9px]">DISCIPLINE</span>
+                      <span className="ast-kicker text-slate-400 block text-[9px]">{t.waitlist.passDiscipline}</span>
                       <span className="font-semibold text-ast-teal-400 truncate block text-sm pt-0.5">{formData.skillCategory}</span>
                     </div>
                   </div>
@@ -251,16 +254,16 @@ export default function WaitlistForm() {
                   <div className="pt-3 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
                     <span className={`ast-kicker flex items-center gap-1 ${isDark ? "text-slate-300" : "text-slate-700"}`}>
                       <Lock className="w-3 h-3 text-emerald-500" />
-                      STATUS: CONFIRMED
+                      {t.waitlist.passStatus}
                     </span>
-                    <span className="text-emerald-500 font-semibold">DISCOUNTED PLATFORM FEE</span>
+                    <span className="text-emerald-500 font-semibold">{t.waitlist.passFeeBenefit}</span>
                   </div>
                 </motion.div>
 
                 {/* Share Section */}
                 <div className="space-y-4 pt-4 border-t border-ast-teal-400/15">
                   <p className={`text-xs sm:text-sm font-medium ${isDark ? "text-slate-300" : "text-slate-700"}`}>
-                    Know another great Tunisian freelancer? Invite them to Cohort 01:
+                    {t.waitlist.shareHeading}
                   </p>
 
                   <div className="flex flex-wrap items-center justify-center gap-3">
@@ -268,13 +271,13 @@ export default function WaitlistForm() {
                       onClick={() => handleSocialShare("whatsapp")}
                       className="px-5 py-2.5 rounded-12 text-xs font-semibold bg-[#25D366]/15 border border-[#25D366]/40 text-[#25D366] hover:bg-[#25D366]/25 transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft"
                     >
-                      <span>Share on WhatsApp</span>
+                      <span>{t.waitlist.shareWhatsApp}</span>
                     </button>
                     <button
                       onClick={() => handleSocialShare("linkedin")}
                       className="px-5 py-2.5 rounded-12 text-xs font-semibold bg-[#0A66C2]/15 border border-[#0A66C2]/40 text-[#0A66C2] dark:text-[#70b5f9] hover:bg-[#0A66C2]/25 transition-all duration-fast ease-courant flex items-center gap-2 shadow-glow-soft"
                     >
-                      <span>Share on LinkedIn</span>
+                      <span>{t.waitlist.shareLinkedIn}</span>
                     </button>
                     <button
                       onClick={handleCopyShare}
@@ -285,7 +288,7 @@ export default function WaitlistForm() {
                       }`}
                     >
                       {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>{copiedLink ? "Link Copied!" : "Copy Page Link"}</span>
+                      <span>{copiedLink ? t.waitlist.shareCopied : t.waitlist.shareCopy}</span>
                     </button>
                   </div>
                 </div>
@@ -307,17 +310,17 @@ export default function WaitlistForm() {
                     isDark ? "bg-ast-night-2 border-ast-teal-400/30 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
                   }`}>
                     <ShieldCheck className="w-3.5 h-3.5 text-ast-teal-400" />
-                    <span className="ast-kicker">Cohort 01 Waitlist Form</span>
+                    <span className="ast-kicker">{t.waitlist.badge}</span>
                   </div>
 
                   <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl tracking-tight ${
                     isDark ? "text-white" : "text-slate-900"
                   }`}>
-                    Join the Founding Freelancers
+                    {t.waitlist.title}
                   </h2>
 
                   <p className={`text-sm sm:text-base ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-                    Reserve your early onboarding access. No spam, no obligation—just guaranteed payment protection and founding fee benefits when we open.
+                    {t.waitlist.subtitle}
                   </p>
                 </div>
 
@@ -333,7 +336,7 @@ export default function WaitlistForm() {
                   >
                     <AlertCircle className="w-5 h-5 text-ast-teal-400 flex-shrink-0 mt-0.5" />
                     <div>
-                      <strong className={isDark ? "text-white" : "text-slate-900"}>You are already on the list!</strong> We have your email recorded for Cohort 01. You will be notified as soon as initial invitations go out.
+                      <strong className={isDark ? "text-white" : "text-slate-900"}>{t.waitlist.duplicateTitle}</strong> {t.waitlist.duplicateMsg}
                     </div>
                   </motion.div>
                 )}
@@ -361,7 +364,7 @@ export default function WaitlistForm() {
                         htmlFor="fullName"
                         className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
-                        Full Name <span className="text-ast-teal-400">*</span>
+                        {t.waitlist.fullNameLabel} <span className="text-ast-teal-400">*</span>
                       </label>
                       <input
                         id="fullName"
@@ -370,7 +373,7 @@ export default function WaitlistForm() {
                         required
                         value={formData.fullName}
                         onChange={handleInputChange}
-                        placeholder="e.g. Yassine Ben Salem"
+                        placeholder={t.waitlist.fullNamePlaceholder}
                         className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
                         disabled={status === "loading"}
                       />
@@ -382,7 +385,7 @@ export default function WaitlistForm() {
                         htmlFor="email"
                         className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
-                        Email Address <span className="text-ast-teal-400">*</span>
+                        {t.waitlist.emailLabel} <span className="text-ast-teal-400">*</span>
                       </label>
                       <input
                         id="email"
@@ -391,7 +394,7 @@ export default function WaitlistForm() {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="yassine@example.tn"
+                        placeholder={t.waitlist.emailPlaceholder}
                         className="w-full px-4 py-3.5 rounded-12 ast-glass-input text-sm font-sans"
                         disabled={status === "loading"}
                       />
@@ -407,7 +410,7 @@ export default function WaitlistForm() {
                         htmlFor="skillCategory"
                         className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
-                        Primary Skill / Discipline <span className="text-ast-teal-400">*</span>
+                        {t.waitlist.skillLabel} <span className="text-ast-teal-400">*</span>
                       </label>
                       <select
                         id="skillCategory"
@@ -419,9 +422,9 @@ export default function WaitlistForm() {
                         disabled={status === "loading"}
                       >
                         <option value="" disabled className={isDark ? "text-slate-500" : "text-slate-400"}>
-                          Select your primary domain
+                          {t.waitlist.skillPlaceholder}
                         </option>
-                        {SKILL_CATEGORIES.map((category) => (
+                        {t.categories.map((category) => (
                           <option key={category} value={category} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
                             {category}
                           </option>
@@ -435,7 +438,7 @@ export default function WaitlistForm() {
                         htmlFor="referralSource"
                         className={`block ast-kicker ${isDark ? "text-slate-300" : "text-slate-700"}`}
                       >
-                        Where did you hear about us? <span className="text-slate-400 text-[10px] normal-case">(optional)</span>
+                        {t.waitlist.referralLabel} <span className="text-slate-400 text-[10px] normal-case">{t.waitlist.referralOptional}</span>
                       </label>
                       <select
                         id="referralSource"
@@ -446,9 +449,9 @@ export default function WaitlistForm() {
                         disabled={status === "loading"}
                       >
                         <option value="" className={isDark ? "text-slate-500" : "text-slate-400"}>
-                          Select a channel
+                          {t.waitlist.referralPlaceholder}
                         </option>
-                        {REFERRAL_SOURCES.map((source) => (
+                        {t.referrals.map((source) => (
                           <option key={source} value={source} className={isDark ? "bg-[#0a2b34] text-white" : "bg-white text-slate-900"}>
                             {source}
                           </option>
@@ -468,11 +471,11 @@ export default function WaitlistForm() {
                       {status === "loading" ? (
                         <div className="flex items-center gap-3">
                           <FivePointWaveLoader />
-                          <span className="ast-kicker text-ast-night">Securing Your Spot...</span>
+                          <span className="ast-kicker text-ast-night">{t.waitlist.submittingText}</span>
                         </div>
                       ) : (
                         <>
-                          <span>Claim Founding Freelancer Spot</span>
+                          <span>{t.waitlist.submitButton}</span>
                           <ArrowRight className="w-4 h-4" />
                         </>
                       )}
@@ -481,7 +484,7 @@ export default function WaitlistForm() {
 
                   {/* Microcopy Reassurance */}
                   <p className="text-center text-xs text-slate-400 font-mono pt-2">
-                    🔒 Zero spam. We only contact you with pre-launch updates and your personal onboarding invite.
+                    {t.waitlist.reassurance}
                   </p>
                 </form>
               </motion.div>

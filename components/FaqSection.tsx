@@ -3,14 +3,15 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { HelpCircle, ChevronDown } from "lucide-react";
-import { FAQ_ITEMS } from "@/lib/constants";
 import { easeCourant, durBase } from "@/lib/motion";
 import { InteractiveGlowCard } from "./InteractiveGlowCard";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
   const toggleFaq = (index: number) => {
@@ -27,23 +28,23 @@ export default function FaqSection() {
             isDark ? "bg-ast-night-2/90 border-ast-teal-400/30 text-ast-teal-400" : "bg-white border-ast-teal-900/20 text-ast-teal-900 shadow-sm"
           }`}>
             <HelpCircle className="w-3.5 h-3.5 text-ast-teal-400" />
-            <span className="ast-kicker">Knowledge Base // FAQ</span>
+            <span className="ast-kicker">{t.faq.badge}</span>
           </div>
 
           <h2 className={`font-heading font-extrabold text-3xl sm:text-4xl lg:text-5xl tracking-tight ${
             isDark ? "text-white" : "text-slate-900"
           }`}>
-            Frequently Asked Questions
+            {t.faq.title}
           </h2>
 
           <p className={`text-base ${isDark ? "text-slate-300" : "text-slate-600"}`}>
-            Everything you need to know about the Asteria Freelance pre-launch and founding cohort.
+            {t.faq.subtitle}
           </p>
         </div>
 
         {/* Accordion List with Interactive Glow */}
         <div className="space-y-4">
-          {FAQ_ITEMS.map((item, idx) => {
+          {t.faq.items.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
               <InteractiveGlowCard

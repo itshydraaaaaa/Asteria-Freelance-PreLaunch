@@ -4,9 +4,11 @@ import React from "react";
 import Image from "next/image";
 import { ArrowUp, Mail, ShieldCheck } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export default function Footer() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const isDark = theme === "dark";
 
   const scrollToTop = () => {
@@ -44,50 +46,51 @@ export default function Footer() {
                 </div>
               </div>
               <span className={`font-heading font-bold text-xl ${isDark ? "text-white" : "text-slate-900"}`}>
-                Asteria <span className="text-ast-teal-400">Freelance</span>
+                Asteria <span className="text-ast-teal-400">{t.navbar.brandTag}</span>
               </span>
             </div>
 
             <p className={`text-sm max-w-md leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-              Tunisia&apos;s dedicated freelance marketplace designed to eliminate non-payment
-              and informal risk through milestone escrow, KYC verification, and local TND payouts.
+              {t.footer.tagline}
             </p>
 
             <div className="flex items-center gap-2 text-xs font-mono pt-1">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span className={`ast-kicker ${isDark ? "text-slate-300" : "text-slate-600"}`}>Tunisia First • Expanding to MENA Post-Launch</span>
+              <span className={`ast-kicker ${isDark ? "text-slate-300" : "text-slate-600"}`}>
+                {t.footer.tunisiaFirst}
+              </span>
             </div>
           </div>
 
           {/* Col 2: Navigation shortcuts */}
           <div className="md:col-span-3 space-y-3">
             <h4 className={`ast-kicker ${isDark ? "text-white" : "text-slate-900"}`}>
-              Navigation
+              {t.footer.navHeader}
             </h4>
             <ul className={`space-y-2 text-sm ${isDark ? "text-slate-400" : "text-slate-600"}`}>
               <li>
                 <a href="#the-problem" className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant">
-                  The Problem
+                  {t.navbar.navReality}
                 </a>
               </li>
               <li>
                 <a href="#how-it-works" className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant">
-                  How Escrow Works
+                  {t.navbar.navHowItWorks}
                 </a>
               </li>
               <li>
                 <a href="#founding-cohort" className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant">
-                  Founding Perks
+                  {t.navbar.navPerks}
                 </a>
               </li>
               <li>
                 <a href="#waitlist" className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant">
-                  Join Waitlist
+                  {t.navbar.ctaJoin}
                 </a>
               </li>
               <li>
                 <a href="#faq" className="hover:text-ast-teal-400 transition-colors duration-fast ease-courant">
-                  FAQ
+                  {t.navbar.navFaq}
                 </a>
               </li>
             </ul>
@@ -96,10 +99,10 @@ export default function Footer() {
           {/* Col 3: Direct Contact */}
           <div className="md:col-span-3 space-y-3">
             <h4 className={`ast-kicker ${isDark ? "text-white" : "text-slate-900"}`}>
-              Contact & Inquiries
+              {t.footer.contactHeader}
             </h4>
             <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-600"}`}>
-              Have questions about the founding cohort or platform partnerships?
+              {t.footer.contactDesc}
             </p>
             <a
               href="mailto:contact@asteriafreelance.com"
@@ -119,14 +122,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
           <p>
-            &copy; {new Date().getFullYear()} Asteria Freelance. All rights reserved. Pre-launch development.
+            &copy; {new Date().getFullYear()} Asteria Freelance. {t.footer.rights}
           </p>
 
           <button
             onClick={scrollToTop}
             className="flex items-center gap-1.5 text-slate-400 hover:text-ast-teal-400 transition-all duration-fast ease-courant group"
           >
-            <span>Back to top</span>
+            <span>{t.footer.backToTop}</span>
             <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-fast ease-courant" />
           </button>
         </div>
