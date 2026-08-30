@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Sparkles, Menu, X, ShieldCheck } from "lucide-react";
+import { Sparkles, Menu, X, ShieldCheck, ArrowRight } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { LanguageToggle } from "./LanguageToggle";
 import { useTheme } from "./ThemeProvider";
@@ -16,7 +16,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
+      setScrolled(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -43,74 +43,54 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? isDark
-            ? "bg-ast-night/85 backdrop-blur-[10px] border-b border-ast-teal-400/15 shadow-premium py-3"
-            : "bg-white/90 backdrop-blur-[10px] border-b border-ast-teal-900/10 shadow-sm py-3"
-          : "bg-transparent py-5"
+            ? "bg-ast-night/85 backdrop-blur-[12px] border-b border-ast-teal-400/15 shadow-premium py-3"
+            : "bg-white/90 backdrop-blur-[12px] border-b border-ast-teal-900/10 shadow-sm py-3"
+          : "bg-transparent py-5 sm:py-6"
       }`}
       style={{
         transitionTimingFunction: "cubic-bezier(.65,0,.35,1)",
       }}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand Logo & Status Pill */}
-        <div className="flex items-center gap-3.5">
-          <a
-            href="#"
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-ast-teal-400 rounded-10"
-            aria-label="Asteria Freelance Home"
-          >
-            {/* Asteria Logo with Signature Breathing & Soft Glow Halo */}
-            <div className="relative flex items-center justify-center">
-              {/* Diffuse glow halo */}
-              <div 
-                className="absolute -inset-1.5 bg-ast-teal-400/25 rounded-pill blur-md group-hover:bg-ast-teal-400/40 transition-colors duration-fast"
-              />
-              
-              {/* Logo container with brand logoBreathe */}
-              <div className={`relative w-10 h-10 rounded-12 border flex items-center justify-center p-1.5 shadow-glow-soft animate-logo-breathe overflow-hidden ${
-                isDark 
-                  ? "bg-ast-night-2/90 border-ast-teal-400/30" 
-                  : "bg-white border-ast-teal-900/20 shadow-md"
-              }`}>
-                <Image
-                  src="/logo.png"
-                  alt="Asteria Freelance"
-                  width={36}
-                  height={36}
-                  className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(96,200,212,0.6)]"
-                  priority
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <span className={`font-heading font-bold text-xl tracking-tight flex items-center gap-2 ${
-                isDark ? "text-white" : "text-ast-ink"
-              }`}>
-                Asteria
-                <span className="ast-kicker text-ast-teal-400 px-2 py-0.5 rounded-6 bg-ast-teal-900/30 border border-ast-teal-400/25">
-                  {t.navbar.brandTag}
-                </span>
-              </span>
-            </div>
-          </a>
-
-          {/* Founding Cohort Badge with Wave-Loader Rhythm Pulse */}
-          <div className={`hidden md:flex items-center gap-2 px-3 py-1 rounded-pill text-[11px] font-mono tracking-wider ${
-            isDark 
-              ? "bg-ast-night-2/80 border border-ast-teal-400/20 text-ast-teal-400" 
-              : "bg-ast-teal-900/5 border border-ast-teal-900/15 text-ast-teal-900 font-semibold"
-          }`}>
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-ast-teal-400 opacity-70"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-ast-teal-400"></span>
-            </span>
-            <span className="ast-kicker">{t.navbar.cohortBadge}</span>
+        
+        {/* Brand Logo (Unboxed, Organic Wave Mark) */}
+        <a
+          href="#"
+          className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-ast-teal-400 rounded-8"
+          aria-label="Asteria Freelance Home"
+        >
+          {/* Asteria Logo with Natural Wave Breathing & Glow Halo */}
+          <div className="relative flex items-center justify-center">
+            {/* Diffuse glow halo */}
+            <div 
+              className="absolute -inset-2 bg-ast-teal-400/30 rounded-full blur-md group-hover:bg-ast-teal-400/50 transition-colors duration-fast" 
+            />
+            
+            {/* Direct Wave Mark without any square frame */}
+            <Image
+              src="/logo.png"
+              alt="Asteria Freelance Wave"
+              width={34}
+              height={34}
+              className="relative w-8 h-8 object-contain animate-logo-breathe filter drop-shadow-[0_0_8px_rgba(96,200,212,0.6)]"
+              priority
+            />
           </div>
-        </div>
 
-        {/* Desktop Nav Links */}
-        <nav className={`hidden md:flex items-center gap-7 text-sm font-medium ${
+          <div className="flex items-center gap-1.5">
+            <span className={`font-heading font-extrabold text-xl tracking-tight ${
+              isDark ? "text-white" : "text-slate-900"
+            }`}>
+              Asteria
+            </span>
+            <span className="text-xs font-mono font-semibold text-ast-teal-400 uppercase tracking-wider px-1.5 py-0.5 rounded bg-ast-teal-400/10 border border-ast-teal-400/20">
+              {t.navbar.brandTag}
+            </span>
+          </div>
+        </a>
+
+        {/* Center: Clean, De-cluttered Navigation Links */}
+        <nav className={`hidden md:flex items-center gap-8 text-sm font-medium ${
           isDark ? "text-slate-300" : "text-slate-700"
         }`}>
           <button
@@ -140,23 +120,21 @@ export default function Navbar() {
           </button>
         </nav>
 
-        {/* Right CTA, Language Toggle & Theme Toggle */}
-        <div className="hidden sm:flex items-center gap-2.5">
+        {/* Right: Clean Utility Group & CTA */}
+        <div className="hidden sm:flex items-center gap-3">
           <LanguageToggle />
           <ThemeToggle />
 
           <button
             onClick={() => scrollToSection("waitlist")}
-            className="relative group overflow-hidden px-5 py-2.5 rounded-12 text-sm font-semibold font-heading text-ast-night bg-ast-teal-400 hover:bg-white active:scale-95 transition-all duration-fast ease-courant shadow-glow-soft"
+            className="relative group overflow-hidden px-5 py-2.5 rounded-12 text-xs sm:text-sm font-semibold font-heading text-ast-night bg-ast-teal-400 hover:bg-white active:scale-95 transition-all duration-fast ease-courant shadow-glow-soft flex items-center gap-1.5"
           >
-            <span className="relative z-10 flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-ast-teal-900" />
-              {t.navbar.ctaJoin}
-            </span>
+            <span>{t.navbar.ctaJoin}</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
 
-        {/* Mobile Menu, Language Toggle & Theme Toggle Button */}
+        {/* Mobile Controls */}
         <div className="flex items-center gap-2 md:hidden">
           <LanguageToggle />
           <ThemeToggle />
@@ -172,6 +150,7 @@ export default function Navbar() {
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
+
       </div>
 
       {/* Mobile Drawer */}

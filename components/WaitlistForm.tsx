@@ -216,18 +216,14 @@ export default function WaitlistForm() {
                   <div className="flex items-center justify-between border-b border-black/10 dark:border-white/10 pb-4">
                     <div className="flex items-center gap-3">
                       <div className="relative flex items-center justify-center">
-                        <div className="absolute -inset-1 bg-ast-teal-400/30 rounded-pill blur-xs animate-pulse-wave" />
-                        <div className={`relative w-9 h-9 rounded-10 border flex items-center justify-center p-1.5 overflow-hidden shadow-glow-soft ${
-                          isDark ? "bg-ast-night-2 border-ast-teal-400/50" : "bg-white border-slate-200 shadow-sm"
-                        }`}>
-                          <Image
-                            src="/logo.png"
-                            alt="Asteria Freelance"
-                            width={32}
-                            height={32}
-                            className="w-full h-full object-contain filter drop-shadow-[0_0_4px_rgba(96,200,212,0.8)]"
-                          />
-                        </div>
+                        <div className="absolute -inset-1.5 bg-ast-teal-400/30 rounded-full blur-xs animate-pulse-wave" />
+                        <Image
+                          src="/logo.png"
+                          alt="Asteria Freelance"
+                          width={32}
+                          height={32}
+                          className="relative w-7 h-7 object-contain filter drop-shadow-[0_0_6px_rgba(96,200,212,0.8)]"
+                        />
                       </div>
                       <div>
                         <span className={`font-heading font-extrabold text-sm block ${isDark ? "text-white" : "text-slate-900"}`}>

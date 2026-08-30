@@ -28,26 +28,27 @@ export default function Footer() {
           isDark ? "border-ast-teal-400/15" : "border-slate-200"
         }`}>
           
-          {/* Col 1: Brand Info */}
+          {/* Col 1: Brand Info (Unboxed Logo) */}
           <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center">
-                <div className="absolute -inset-1 bg-ast-teal-400/20 rounded-pill blur-md animate-pulse-wave" />
-                <div className={`relative w-10 h-10 rounded-12 border flex items-center justify-center p-1.5 shadow-glow-soft overflow-hidden ${
-                  isDark ? "bg-ast-night-2/90 border-ast-teal-400/30" : "bg-slate-50 border-slate-200 shadow-sm"
-                }`}>
-                  <Image
-                    src="/logo.png"
-                    alt="Asteria Freelance Logo"
-                    width={36}
-                    height={36}
-                    className="w-full h-full object-contain filter drop-shadow-[0_0_6px_rgba(96,200,212,0.6)]"
-                  />
-                </div>
+                <div className="absolute -inset-2 bg-ast-teal-400/25 rounded-full blur-md animate-pulse-wave" />
+                <Image
+                  src="/logo.png"
+                  alt="Asteria Freelance Logo"
+                  width={34}
+                  height={34}
+                  className="relative w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(96,200,212,0.6)]"
+                />
               </div>
-              <span className={`font-heading font-bold text-xl ${isDark ? "text-white" : "text-slate-900"}`}>
-                Asteria <span className="text-ast-teal-400">{t.navbar.brandTag}</span>
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className={`font-heading font-extrabold text-xl ${isDark ? "text-white" : "text-slate-900"}`}>
+                  Asteria
+                </span>
+                <span className="text-xs font-mono font-semibold text-ast-teal-400 uppercase tracking-wider px-1.5 py-0.5 rounded bg-ast-teal-400/10 border border-ast-teal-400/20">
+                  {t.navbar.brandTag}
+                </span>
+              </div>
             </div>
 
             <p className={`text-sm max-w-md leading-relaxed ${isDark ? "text-slate-400" : "text-slate-600"}`}>
